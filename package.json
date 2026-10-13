@@ -1,9 +1,9 @@
 {
   "name": "kejian-notice-todo",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "packageManager": "pnpm@11.20.0",
-  "description": "课间：通知转待办，网页版与微信小程序",
+  "description": "课间：本地离线的 Windows 通知待办工具",
   "engines": {
     "node": ">=18"
   },
@@ -26,6 +26,8 @@
     "test:wechat:layout": "node tests/miniprogram-layout.cjs",
     "build:desktop": "node scripts/build-desktop.cjs",
     "test:desktop": "node tests/desktop.cjs",
-    "prepare:github": "node scripts/prepare-github.cjs"
+    "prepare:github": "node scripts/prepare-github.cjs",
+    "check:desktop": "node --check desktop/ui/app.js && node --check desktop/ui/bridge.js && node --check scripts/build-desktop.cjs && node --check tests/desktop.cjs",
+    "test:core": "node --test tests/core.test.cjs tests/corpus.test.cjs"
   }
 }

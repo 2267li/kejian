@@ -1,88 +1,104 @@
-# 课间 · 通知转待办
+# 课间 · Windows 通知待办
 
-面向大学生的免费通知待办工具，提供网页版、微信小程序开发版和 Windows 桌面版。粘贴通知，核对日期和要求，保存待办。
+把群里的文字通知粘贴进来，核对时间与要求，再保存为待办。
 
-当前版本：**0.2.1**。支持添加到主屏幕、首次缓存后的离线使用和手动导入导出。通知识别使用本地规则，无付费 API、无账号，不上传通知。
+面向大学生的轻量桌面工具。**免安装、无需登录、离线可用**。通知在本机按规则整理，不调用付费接口，也不会上传你的待办。
 
-**[下载 Windows 电脑端](https://github.com/2267li/kejian/releases/latest)** · [反馈问题或建议](https://github.com/2267li/kejian/issues)
+**[下载 Windows 版](https://github.com/2267li/kejian/releases/latest)** · [使用说明](docs/desktop.md#使用与升级) · [反馈问题](https://github.com/2267li/kejian/issues)
 
-第一次使用请下载发布页中的 `kejian-0.2.1-windows-x64.zip`，解压后双击“课间.exe”。适用于 Windows 10/11 64 位，需要 .NET Framework 4.7.2+ 和 WebView2 Runtime。详细要求见 [桌面版说明](docs/desktop.md)。
+当前 Windows 版本：**0.3.0**。现阶段集中完善 Windows 版。
 
-![课间 Windows 桌面版，图中为模拟通知](assets/previews/windows-desktop.png)
+## 看看界面
 
-新增 **微信小程序开发版 0.1.0**，位于 `miniprogram/`。微信开发者工具导入项目根目录即可检查；当前尚无正式 AppID，未上传或发布。导入与发布步骤见 [微信小程序说明](docs/wechat.md)。基础功能免费，当前未接入广告、付费接口或云服务。
+### 待办工作台
 
-工程统一使用 pnpm，复用 E 盘已有依赖仓库，项目缓存与测试临时目录保存在 `.cache/`。小程序已修复模拟器白屏，通过编译、逻辑测试及实际微信模拟器交互验证，详见 [小程序 QA](docs/qa/wechat-v0.1.0.md)。本机运行 `pnpm run wechat:open` 打开开发者工具。
+左边粘贴通知、核对草稿，右边查看和搜索待办。顶部能看到待完成、今天截止和已经逾期的事项数量。
 
-## 打开与使用
+![课间 Windows 版待办工作台](assets/previews/windows-workspace.png)
 
-**Windows 桌面版**：双击 `release/windows/v0.2.1/课间.exe`；分发使用同目录的 `课间-Windows免安装版.zip`。本机运行环境已具备，无需安装。数据在 EXE 旁的“课间数据”文件夹，通过备份与其他端转移。详见 [桌面版说明](docs/desktop.md)。
+<details>
+<summary>查看草稿核对页面</summary>
 
-在线使用：[打开课间](https://kejian-notice-todo.lih2267194.chatgpt.site)。部署记录在 `docs/deployment.md`。首次联网打开后，页尾显示“已就绪 · 断网也能用”表示离线缓存完成。
+![核对通知提取出的日期、时间与要求](assets/previews/windows-draft.png)
 
-- 电脑：用 Edge / Chrome 打开网址，可通过“添加到桌面”安装。
-- iPhone / iPad：Safari 打开网址 → 分享 → 添加到主屏幕。
-- 安卓：用支持安装的浏览器打开网址 → 浏览器菜单 → 安装应用或添加到主屏幕。
-- 手机底部可切换“收通知”“我的待办”，在“数据与帮助”中迁移数据。
-- 换设备：原设备保存备份 → 传文件到新设备 → 恢复待办。默认合并；同 ID 以导入文件为准。选择替换全部时会再次确认。
+</details>
 
-电脑也可直接打开 `release/v0.2.1/课间-免费离线版.html`，但本地文件不能安装为 PWA。旧版本文件、不同浏览器和不同网址各自保存数据，需要导出导入迁移。
+### 备份与恢复
 
-最新验证：40 条模拟通知 + 6 条高校公开通知摘编，旧版 25/46 符合预期，修复后 46/46。包含 17 条需要人工确认的样本，不代表全部自动识别。详见 [本轮报告](docs/qa/report-v0.2.1.md)。
+保存一份备份，或选择已有文件恢复；同一页说明数据存在哪里、怎样换电脑、怎样更新程序。
 
-## 目录约定
+![课间 Windows 版备份与恢复](assets/previews/windows-backup.png)
+
+以上均为实际 EXE 界面截图，使用模拟通知，不包含个人待办。
+
+## 下载后怎么用
+
+1. 在 [下载页](https://github.com/2267li/kejian/releases/latest) 选择 `kejian-0.3.0-windows-x64.zip`。
+2. 解压到可写入的文件夹，双击 **课间.exe**。
+3. 粘贴通知，选对“通知发送日期”，点击“整理成待办草稿”。
+4. 核对事项、日期、时间和要求，再加入待办。完成后勾选即可。
+
+运行要求：**Windows 10/11 64 位、.NET Framework 4.7.2+、Microsoft Edge WebView2 Runtime**。若电脑提示缺少 WebView2，可从 [微软官网](https://developer.microsoft.com/microsoft-edge/webview2/) 安装。使用软件不需要 Node、pnpm 或微信开发者工具。
+
+当前程序未做代码签名，Windows 可能显示“未知发布者”。下载包提供第三方组件说明，发布页同时提供 SHA-256 校验清单。
+
+## 现在可以做什么
+
+| 功能 | 使用方式 |
+| --- | --- |
+| 整理文字通知 | 提取事项、日期、时间、分类和要求，先生成草稿供你核对 |
+| 管理待办 | 编辑、完成、恢复、删除；误删后可在提示中撤销 |
+| 搜索与筛选 | 搜索事项、备注和原通知，切换待完成 / 已完成 / 全部 |
+| 查看安排 | 按截止时间排序，日期不明确的事项保留为待定 |
+| 备份与恢复 | 保存备份文件；恢复时选择保留现有待办或全部替换 |
+| 导出日历 | 生成日历文件，自行导入日历软件并设置提醒 |
+
+识别使用本地规则，**结果可能有误，保存前请核对**。暂不识别截图、PDF 或 Word，不支持自动同步、云端存储和后台提醒。待办超过一页时分页展示，每页最多 50 条。
+
+## 数据与更新
+
+程序第一次启动，会在 EXE 旁创建 **“课间数据”文件夹**。已保存的待办留在这里，关闭程序后仍会保留。
+
+- **移动程序**：把 EXE 和“课间数据”文件夹一起移动。
+- **换电脑**：先保存备份，把文件传到另一台电脑，再在课间中恢复。
+- **更新版本**：先保存备份并关闭课间，再替换原位置的 EXE，保留“课间数据”文件夹。
+
+不要把实际备份或“课间数据”上传到公开仓库。0.3.0 继续使用原有备份格式，可恢复旧版本课间备份。
+
+## 开发与验证
+
+桌面宿主使用 **C# WinForms + WebView2**，界面使用 HTML / CSS / JavaScript。页面、交互与文件桥接分开维护；通知识别复用 `src/core.js`。
 
 ```text
-kejian/
-├── src/                  网页源码与共享识别逻辑，含离线脚本和图标
-├── miniprogram/          原生微信页面与本地数据适配；core.js 由网页共享逻辑生成
-├── desktop/              Windows 窗口、文件桥接、桌面样式与依赖锁定
-├── project.config.json   微信开发者工具入口，当前为测试 AppID
-├── scripts/              预览、构建、生成图标和 ZIP 打包
-├── tests/                日期、日历、离线交互及跨设备迁移测试
-├── docs/                 产品、开发、测试、用户说明、发布记录
-├── assets/previews/      确认过的展示截图，含模拟数据
-├── dist/                 网站发布文件；自动生成，不手改
-├── release/v0.2.1/       HTML、试用 ZIP 和网站部署 ZIP；旧版本单独保留
-├── release/wechat/       小程序开发包；不是已上线的小程序
-├── release/windows/      Windows EXE、免安装 ZIP 和运行说明
-├── .cache/               测试截图与构建归档等临时材料
-├── netlify.toml          其他平台的构建与发布目录配置；无凭据
-├── package.json          版本号与命令入口
-└── CHANGELOG.md           变更记录
+desktop/
+  Program.cs                启动、单实例、便携数据目录与组件释放
+  DesktopWindow.cs          原生窗口、文件保存和退出确认
+  ui/index.html             桌面页面结构与文案
+  ui/desktop.css            Windows 布局与样式
+  ui/app.js                 待办、草稿、搜索、分页与备份交互
+  ui/bridge.js              页面与原生文件保存通信
+  dependency-lock.json      WebView2 SDK 版本及校验值
+scripts/build-desktop.cjs    生成单 EXE 和分发 ZIP
+tests/desktop.cjs            实际 EXE 的隔离回归测试
+docs/                       使用、开发和验证记录
+assets/previews/             README 使用的真实界面截图
 ```
 
-## 开发命令
+本机开发目录为 `E:\Project\kejian`，缓存与测试资料放在项目的 `.cache`，统一使用 pnpm。克隆到其他环境时，可按需调整 `.npmrc` 和 `pnpm-workspace.yaml` 的缓存路径。
 
-Node.js 18+；使用产品只需浏览器。运行、构建、测试规则和打包无需 pnpm install。
-
-```text
-pnpm run dev           构建并预览 http://127.0.0.1:5173
-pnpm run check         脚本语法检查
-pnpm test              日期和日历测试
-pnpm run build         生成 dist 网站与单文件 HTML
-pnpm run package       生成试用 ZIP 和网站部署 ZIP
-pnpm run test:browser  可选 Playwright：离线文件与网页全流程
-pnpm run build:wechat 同步小程序识别逻辑
-pnpm run check:wechat 小程序语法与 WXML/WXSS 编译检查
-pnpm run test:transfer 网页与小程序备份格式双向验证
-pnpm run build:desktop 生成 Windows EXE 与免安装 ZIP
-pnpm run test:desktop  实际桌面程序的离线、备份和重启测试
-pnpm run prepare:github 整理可公开的源码快照；仅本地准备，不上传
+```powershell
+pnpm run check:desktop   # 桌面脚本语法检查
+pnpm run test:core       # 共享识别规则和通知样本测试
+pnpm run build:desktop   # 生成 release/windows/v0.3.0
+pnpm run test:desktop    # 实际启动 EXE 验证，需要可选 Playwright
 ```
 
-修改源码后重新构建。浏览器测试需要已有 Playwright 与浏览器，配置见 [开发说明](docs/development.md)。文档导航见 [文档目录](docs/README.md)。
+构建需要 Windows 和本机 .NET Framework C# 编译器；首次构建从官方 NuGet 获取锁定版本的 WebView2 SDK，并校验摘要。后续复用缓存，不需要安装 Electron 或完整 .NET SDK。
 
-备选网站托管方案的文件已备齐；Netlify 尚未部署或产生新网址，目前优先推进微信小程序。操作见 [迁移说明](docs/hosting-netlify.md)。
+EXE 自动化测试可通过 `KEJIAN_PLAYWRIGHT_MODULE` 指向已有 Playwright 模块。测试使用独立临时目录，不接触正常使用的数据。详细方法和覆盖范围见 [桌面开发说明](docs/desktop.md) 与 [0.3.0 验证记录](docs/qa/desktop-v0.3.0.md)。
 
-## 边界与成本
+原网页版和微信小程序代码保留在仓库中，本次未更新或发布。历史说明见 [文档目录](docs/README.md)。
 
-基础规则可能识别错误，保存前请核对。不支持截图识别、自动同步、后台推送或收费功能。日历提醒需导出后自行设置。
+## 反馈
 
-各端分别在本机保存记录；清理网页站点数据、微信小程序数据或桌面版数据文件夹会丢失记录，请定期备份。站点托管会产生正常网页访问请求，产品不上传通知或自动收集使用反馈。
-
-本轮使用现有 Sites 资格，未购买服务、域名或 API。官方公测政策为符合条件的套餐包含 Sites，受套餐、地区、工作区和额度限制，不承诺永久免费或无限量。详情见 [官方价格说明](https://learn.chatgpt.com/docs/pricing)。
-
-## 维护约定
-
-网页修改 src，小程序修改 miniprogram；共享识别逻辑只修改 src/core.js 后运行 build:wechat，不直接修改生成的 miniprogram/utils/core.js、dist 或 release。功能变化同步更新文档、测试与 CHANGELOG。发布前运行相关检查；不要将真实通知、账号、密钥或日志提交到源码仓库。
+请在 [Issues](https://github.com/2267li/kejian/issues) 描述操作步骤、预期结果和实际现象，可附上不含个人信息的截图。不要公开同学姓名、真实通知或备份文件。

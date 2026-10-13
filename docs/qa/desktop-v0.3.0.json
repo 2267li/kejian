@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "version": "0.3.0",
+  "exeBytes": 983040,
+  "offline": true,
+  "externalPageRequests": 0,
+  "pageErrors": 0,
+  "backupRoundTripRecords": 3,
+  "paginationRecords": 121,
+  "restartPersistence": true,
+  "isolatedDataDirectory": "E:\\Project\\kejian\\.cache\\desktop\\qa\\run-1791883852925\\便携程序\\课间数据",
+  "checks": [
+    "single EXE in a new folder; duplicate instance protection; empty backup state",
+    "Chinese extraction; create/reload/edit/complete; Ctrl+Enter save; safe text rendering; draft replacement cancellation; completed edit filter",
+    "backup round trip; native backup/calendar writing; invalid schema and duplicate ID rejection; replacement cancel/confirm",
+    "undo restores one deleted record without reverting later completion or imported edits",
+    "121 records render in 50-record pages; search includes notes; empty results; filter/search reset pagination",
+    "storage write failure keeps draft and data; corrupt storage protected; valid backup recovery",
+    "returning to the window preserves expanded original notices",
+    "plain-language Windows backup page; 1180px and 820px layouts; actual EXE screenshots",
+    "full EXE restart preserves saved records; no external page requests or script errors"
+  ],
+  "nativeFileDialog": "automation chooses a test output path",
+  "screenshots": [
+    "windows-workspace.png",
+    "windows-draft.png",
+    "windows-backup.png",
+    "windows-compact.png"
+  ],
+  "screenshotViewport": "1180x800 workspace, 1180x900 draft, full-height backup and 820x650 compact; CSS pixels via CDP on actual EXE"
+}

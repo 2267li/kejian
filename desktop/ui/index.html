@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>课间 · 通知转待办</title>
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="desktop.css">
+</head>
+<body>
+  <svg class="icon-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-board" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 9 1 1 2-2m2 1h3M8 15h2m3 0h3"/></symbol>
+    <symbol id="icon-backup" viewBox="0 0 24 24"><path d="M4 7V4m0 0h3M4 4l4 4M20 17v3m0 0h-3m3 0-4-4"/><path d="M11 4h4a5 5 0 0 1 5 5v3M13 20H9a5 5 0 0 1-5-5v-3"/></symbol>
+    <symbol id="icon-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4M12 16h.01"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></symbol>
+    <symbol id="icon-restore" viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 1 2 7M3 5v6h6M12 7v5l3 2"/></symbol>
+    <symbol id="icon-folder" viewBox="0 0 24 24"><path d="M3 7V5h6l2 2h10v13H3V7Z"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-14 4h3m4 0h3"/></symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></symbol>
+  </svg>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="应用导航">
+      <div class="brand"><span class="brandmark" aria-hidden="true">✓</span><div><strong>课间</strong><small>通知转待办</small></div></div>
+      <p class="nav-caption">我的空间</p>
+      <nav class="section-nav" aria-label="主要功能">
+        <button type="button" data-section="workspace" class="active" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#icon-board"/></svg><span>待办工作台</span></button>
+        <button type="button" data-section="data"><svg class="icon" aria-hidden="true"><use href="#icon-backup"/></svg><span>备份与恢复</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="local-note"><svg class="icon" aria-hidden="true"><use href="#icon-lock"/></svg><strong>你的通知，留在本机</strong><p>不用登录，断网也能用。</p></div>
+        <button type="button" id="helpBtn" class="sidebar-help"><svg class="icon" aria-hidden="true"><use href="#icon-help"/></svg>使用说明</button>
+        <div class="sidebar-version">Windows 版 <span>v__APP_VERSION__</span></div>
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="page-heading">
+        <div><p class="eyebrow">少记一点，轻松一点</p><h1 id="pageTitle">待办工作台</h1><p id="pageSubtitle">把通知里的时间和要求，整理成下一步。</p></div>
+        <span id="appStatus" class="connection-status"><i aria-hidden="true"></i>离线可用 · 本机保存</span>
+      </header>
+      <section id="workspaceSection" aria-label="待办工作台">
+        <div class="overview" aria-label="待办概览">
+          <div class="overview-item"><span class="metric-label">待完成</span><strong id="pendingCount">0</strong><span class="metric-hint">按你的节奏来</span></div>
+          <div class="overview-item"><span class="metric-label">今天截止</span><strong id="todayCount">0</strong><span class="metric-hint">先看看今天的安排</span></div>
+          <div class="overview-item overdue-metric"><span class="metric-label">已过截止时间</span><strong id="overdueCount">0</strong><span class="metric-hint">核对后继续完成</span></div>
+        </div>
+        <div class="workspace">
+          <section class="panel compose" aria-labelledby="composeTitle">
+            <div class="panel-heading"><div><span class="step">01</span><h2 id="composeTitle">收一条通知</h2></div><span class="quiet-label">一次整理一件事</span></div>
+            <div class="compose-scroll">
+              <div class="notice-label"><label for="notice">通知原文</label><span id="noticeCount">0 / 10000</span></div>
+              <textarea id="notice" maxlength="10000" spellcheck="false" placeholder="粘贴班群、课程群里的文字通知。&#10;&#10;例如：明天晚上八点前提交实验报告，PDF 格式。"></textarea>
+              <div class="samples" aria-label="示例通知"><span>试试看</span><button type="button" data-example="homework">实验作业</button><button type="button" data-example="event">活动报名</button><button type="button" data-example="exam">考试安排</button></div>
+              <div class="reference-row"><label for="reference">通知发送日期</label><input type="date" id="reference" required aria-describedby="referenceHelp"></div>
+              <p class="field-hint" id="referenceHelp">“明天”“下周”都以这一天为准。</p>
+              <button type="button" id="extractBtn" class="primary wide">整理成待办草稿<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
+              <p class="fineprint">本机规则整理，保存前请核对。暂不识别图片或文档。</p>
+              <form id="draftForm" class="draft hidden">
+                <div class="draft-heading"><div><span class="step">02</span><h3 id="draftHeading">核对一下，再保存</h3></div><button class="textbtn" type="button" id="cancelDraft">取消</button></div>
+                <div id="warnings" role="status" class="warnings hidden"></div>
+                <label for="taskTitle">要做什么</label><input id="taskTitle" maxlength="120" required autocomplete="off">
+                <div class="form-grid"><div><label for="taskDate">截止日期 <small>可留空</small></label><input id="taskDate" type="date"></div><div><label for="taskTime">截止时间 <small>可留空</small></label><input id="taskTime" type="time"></div></div>
+                <p class="field-hint" id="dateEvidence"></p>
+                <label for="taskCategory">分类</label><select id="taskCategory"><option>作业</option><option>考试</option><option>活动</option><option>其他</option></select>
+                <label for="taskNotes">要求与备注</label><textarea id="taskNotes" maxlength="3000" rows="3" placeholder="格式、文件名、提交位置……"></textarea>
+                <button id="saveBtn" class="primary wide" type="submit">确认，加入待办</button>
+              </form>
+            </div>
+          </section>
+          <section class="panel tasks-panel" aria-labelledby="tasksTitle">
+            <div class="panel-heading"><div><h2 id="tasksTitle">我的待办</h2><span id="taskCountLabel" class="count">0 条</span></div><button type="button" id="exportCalendar" class="textbtn icon-button"><svg class="icon" aria-hidden="true"><use href="#icon-calendar"/></svg>生成日历</button></div>
+            <p class="board-summary" id="boardSummary">把要做的事记下来，再一件一件完成。</p>
+            <div class="search-field"><svg class="icon" aria-hidden="true"><use href="#icon-search"/></svg><label class="sr-only" for="taskSearch">搜索待办</label><input id="taskSearch" type="search" placeholder="搜索事项、备注或通知原文" autocomplete="off" maxlength="200"></div>
+            <div class="filter-row" role="group" aria-label="筛选待办"><button type="button" data-filter="pending" class="active" aria-pressed="true">待完成</button><button type="button" data-filter="done" aria-pressed="false">已完成</button><button type="button" data-filter="all" aria-pressed="false">全部</button></div>
+            <div id="taskList" aria-live="polite" aria-label="待办列表"></div>
+            <div id="taskPagination" class="pagination hidden"><button type="button" id="previousPage" class="textbtn">上一页</button><span id="taskPageLabel"></span><button type="button" id="nextPage" class="textbtn">下一页</button></div>
+            <div class="board-footer"><span>共 <span id="totalCount">0</span> 条记录，保存在本机</span><div><button type="button" id="backupBtn" class="textbtn">保存备份</button><button type="button" id="restoreBtn" class="textbtn">恢复待办</button></div></div>
+          </section>
+        </div>
+        <p class="workspace-note">需要提醒？生成日历文件，导入系统日历后设置提醒。课间不会在后台弹出通知。</p>
+      </section>
+      <section id="dataSection" class="hidden" aria-label="备份与恢复">
+        <div class="backup-summary"><div class="backup-emblem"><svg class="icon" aria-hidden="true"><use href="#icon-lock"/></svg></div><div><h2>给待办留一份备份</h2><p>本机已有 <strong id="backupCount">0</strong> 条记录。换电脑或更新程序前，先把它们收好。</p><span id="backupStatus">还没有保存过备份</span></div></div>
+        <div class="backup-grid">
+          <article class="panel backup-card"><span class="action-icon"><svg class="icon" aria-hidden="true"><use href="#icon-download"/></svg></span><h2>保存一份备份</h2><p>把现有待办存成一个文件，放到你容易找到的位置。</p><button type="button" id="transferExport" class="primary wide">保存备份文件</button><span class="card-note">不会删除或移动当前待办。</span></article>
+          <article class="panel backup-card"><span class="action-icon restore-icon"><svg class="icon" aria-hidden="true"><use href="#icon-restore"/></svg></span><h2>从备份恢复待办</h2><p>选择以前保存的课间备份。下一步可保留现有记录，或全部替换。</p><button type="button" id="transferImport" class="secondary wide">选择备份文件</button><span class="card-note">仅支持课间自己的备份文件。</span></article>
+        </div>
+        <section class="panel data-guide" aria-labelledby="dataGuideTitle"><h2 id="dataGuideTitle">数据怎么保管？</h2><div class="guide-row"><span class="guide-number">1</span><div><h3>记录就在程序旁边</h3><p>“课间数据”文件夹保存着你的待办。移动程序时，请把这个文件夹一起带走。</p></div><button type="button" id="showDataFolder" class="textbtn icon-button"><svg class="icon" aria-hidden="true"><use href="#icon-folder"/></svg>打开文件夹</button></div><div class="guide-row"><span class="guide-number">2</span><div><h3>换电脑，用备份搬家</h3><p>先保存备份，把文件传到另一台电脑，再打开课间恢复。设备之间不会自动同步。</p></div></div><div class="guide-row"><span class="guide-number">3</span><div><h3>更新前，先保存一份</h3><p>关闭课间后更换 EXE，保留原来的“课间数据”文件夹。备份让你多一份保障。</p></div></div></section>
+      </section>
+      <footer class="page-footer"><span>课间 · 给校园生活一个小帮手</span><button type="button" id="feedbackBtn" class="textbtn">反馈问题或建议 <span aria-hidden="true">↗</span></button></footer>
+    </main>
+  </div>
+  <input id="restoreInput" class="hidden" type="file" accept="application/json,.json">
+  <dialog id="importDialog" aria-labelledby="importTitle"><div class="dialog-header"><h2 id="importTitle">恢复备份中的待办</h2><button type="button" class="close-btn" data-close="importDialog" aria-label="关闭恢复窗口">×</button></div><p id="importSummary" class="dialog-copy"></p><label class="import-option"><input type="radio" name="importMode" value="merge" checked><span>保留现有待办<small>把备份中的事项加进来；同一条待办使用备份里的版本。</small></span></label><label class="import-option"><input type="radio" name="importMode" value="replace"><span>用备份全部替换<small>当前记录会被替换。建议先保存一份本机备份。</small></span></label><button type="button" id="confirmImport" class="primary wide">确认恢复</button></dialog>
+  <dialog id="helpDialog" aria-labelledby="helpTitle"><div class="dialog-header"><h2 id="helpTitle">一条通知，三步收好</h2><button type="button" class="close-btn" data-close="helpDialog" aria-label="关闭使用说明">×</button></div><ol class="help-list"><li><strong>粘贴通知，选对发送日期</strong><p>一次整理一件事。“明天”“下周”等说法，都按通知发送日期计算。</p></li><li><strong>核对草稿，再保存</strong><p>检查事项、日期、时间和要求。遇到多个日期或含糊的表述，请手动确认。</p></li><li><strong>做完勾选，定期备份</strong><p>待办会保存在本机。需要提醒时，生成日历文件，再到系统日历中设置。</p></li></ol><div class="help-footer"><strong>现在能做什么？</strong><p>整理文字通知、管理待办、备份恢复。暂不识别图片、PDF 或 Word，不会自动同步或发送提醒。</p></div><button type="button" class="primary wide" data-close="helpDialog">开始使用</button></dialog>
+  <dialog id="feedbackDialog" aria-labelledby="feedbackTitle"><div class="dialog-header"><h2 id="feedbackTitle">哪里还不顺手？</h2><button type="button" class="close-btn" data-close="feedbackDialog" aria-label="关闭反馈窗口">×</button></div><p class="dialog-copy">描述操作步骤、遇到的现象，或者你想要的功能。</p><label for="feedbackText">你的反馈</label><textarea id="feedbackText" rows="5" maxlength="2000" placeholder="例如：粘贴通知后，截止日期没有识别出来……"></textarea><p class="fineprint">这里不会自动发送。复制后可发到下载页的 Issues 或原发布帖，请勿附上真实通知或个人信息。</p><button type="button" id="copyFeedback" class="primary wide">复制反馈内容</button></dialog>
+  <div id="toast" role="status" class="toast hidden"><span></span><button type="button" id="undoBtn" class="hidden">撤销删除</button></div>
+  <script src="bridge.js"></script>
+  <script src="core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -15,6 +15,7 @@ namespace KejianDesktop {
         private readonly WebView2 browser=new WebView2();
         private readonly JavaScriptSerializer json=new JavaScriptSerializer{MaxJsonLength=24*1024*1024};
         private bool closingConfirmed;
+        private bool closeCheckPending;
         internal DesktopWindow() {
             Program.Trace("window constructor");
             Text="课间 · 通知转待办";StartPosition=FormStartPosition.CenterScreen;
@@ -71,6 +72,7 @@ namespace KejianDesktop {
             string id="";
             try {
                 var request=json.Deserialize<Dictionary<string,object>>(args.WebMessageAsJson);
+                if(request==null||!request.ContainsKey("id")||!request.ContainsKey("command"))return;
                 id=Convert.ToString(request["id"]);
                 string command=Convert.ToString(request["command"]);
                 if(Program.TestMode&&command=="test-close"){closingConfirmed=true;Close();return;}
@@ -78,6 +80,7 @@ namespace KejianDesktop {
                     Process.Start(new ProcessStartInfo("explorer.exe","\""+Program.DataDir+"\""){UseShellExecute=true});return;
                 }
                 if(command!="save-file")return;
+                if(!request.ContainsKey("name")||!request.ContainsKey("text"))throw new ArgumentException("没有收到要保存的内容");
                 string name=Path.GetFileName(Convert.ToString(request["name"])),text=Convert.ToString(request["text"]),extension=Path.GetExtension(name).ToLowerInvariant();
                 if(extension!=".json"&&extension!=".ics"&&extension!=".txt")throw new ArgumentException("不支持这种文件类型");
                 byte[] bytes=new UTF8Encoding(false).GetBytes(text);
@@ -96,16 +99,23 @@ namespace KejianDesktop {
                     }
                 }
                 Program.WriteFile(target,bytes);Reply(id,true,null);
-            } catch(Exception error){Program.Log(error);Reply(id,false,"没有保存成功，请检查文件夹权限和剩余空间。" );}
+            } catch(Exception error){Program.Log(error);Reply(id,false,error is ArgumentException?error.Message:"没有保存成功，请检查文件夹权限和剩余空间。");}
         }
-        private void Reply(string id,bool saved,string error){browser.CoreWebView2.PostWebMessageAsJson(json.Serialize(new{type="save-result",id=id,saved=saved,error=error}));}
+        private void Reply(string id,bool saved,string error) {
+            if(IsDisposed||browser.CoreWebView2==null)return;
+            browser.CoreWebView2.PostWebMessageAsJson(json.Serialize(new{type="save-result",id=id,saved=saved,error=error}));
+        }
         private async void OnClosing(object sender,FormClosingEventArgs args) {
             if(closingConfirmed||browser.CoreWebView2==null)return;
             args.Cancel=true;
+            if(closeCheckPending)return;
+            closeCheckPending=true;
             try {
-                string dirty=await browser.CoreWebView2.ExecuteScriptAsync("Boolean(document.querySelector('#notice')?.value.trim() || !document.querySelector('#draftForm')?.classList.contains('hidden'))");
+                string dirty=await browser.CoreWebView2.ExecuteScriptAsync("Boolean(window.KejianApp?.hasUnsavedChanges ? window.KejianApp.hasUnsavedChanges() : document.querySelector('#notice')?.value.trim() || (document.querySelector('#draftForm') && !document.querySelector('#draftForm').classList.contains('hidden')))");
                 if(dirty=="true"&&!Program.TestMode&&MessageBox.Show(this,"还有未保存的通知或草稿，确定关闭吗？","课间",MessageBoxButtons.OKCancel,MessageBoxIcon.Question)!=DialogResult.OK)return;
-            }catch{}
+            }catch(Exception error){Program.Log(error);}
+            finally{closeCheckPending=false;}
+            if(IsDisposed)return;
             closingConfirmed=true;Close();
         }
         protected override void Dispose(bool disposing){if(disposing)browser.Dispose();base.Dispose(disposing);}
