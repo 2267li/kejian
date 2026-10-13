@@ -1,0 +1,12 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');
+const {extract,parseDate,makeCalendar}=require('../src/core.js');
+test('按通知日期理解下周，支持中文晚间时刻',()=>{const r=extract('下周三晚上八点前提交实验报告。格式为 PDF。','2026-10-11');assert.equal(r.date,'2026-10-14');assert.equal(r.time,'20:00');assert.equal(r.category,'作业');assert.match(r.notes,/PDF/);});
+test('相对日期跨月跨年',()=>{assert.equal(extract('明天下午六点前完成报名','2026-12-31').date,'2027-01-01');assert.equal(extract('后天提交作业','2026-01-31').date,'2026-02-02');});
+test('多个日期不猜截止时间',()=>{const r=extract('10月12日开始，10月15日晚上八点截止报名','2026-10-11');assert.equal(r.date,'');assert.equal(r.time,'');assert.match(r.warnings.join(''),/多个日期/);});
+test('多个时刻不自动选一个',()=>{const r=extract('10月12日9:00签到，10:00考试','2026-10-11');assert.equal(r.date,'2026-10-12');assert.equal(r.time,'');});
+test('非法日期不滚动到其他月份',()=>{assert.equal(parseDate('2026-02-30'),null);const r=extract('2月30日提交报告','2026-02-01');assert.equal(r.date,'');assert.match(r.warnings.join(''),/有效日期/);});
+test('无年份保持通知年并提醒跨年',()=>{const r=extract('1月3日截止报名','2026-12-30');assert.equal(r.date,'2026-01-03');assert.match(r.warnings.join(''),/跨年/);});
+test('没有日期保持待定',()=>{const r=extract('请提交实验报告，格式为PDF','2026-10-11');assert.equal(r.date,'');assert.equal(r.time,'');});
+test('下午半点、凌晨和星期边界',()=>{assert.equal(extract('明天下午三点半开会','2026-10-11').time,'15:30');assert.equal(extract('明天凌晨十二点提交','2026-10-11').time,'00:00');assert.equal(extract('下周一交报告','2026-10-11').date,'2026-10-12');assert.equal(extract('下下周一交报告','2026-10-11').date,'2026-10-19');});
+test('日历转义、多字节折行和全天结束时间',()=>{const calendar=makeCalendar([{id:'abc',title:'实验报告'.repeat(30),date:'2026-12-31',time:'',notes:'备注, 分号;\n下一行',source:''}]);assert.match(calendar,/DTEND;VALUE=DATE:20270101/);assert.match(calendar,/备注\\, 分号\\;\\n下一行/);for(const line of calendar.split('\r\n'))assert.ok(Buffer.byteLength(line)<=75);});
+test('日历忽略未定日期、保留本地时间',()=>{const calendar=makeCalendar([{id:'1',title:'定时',date:'2026-10-14',time:'20:00'},{id:'2',title:'未定',date:'',time:''}]);assert.match(calendar,/DTSTART:20261014T200000/);assert.equal((calendar.match(/BEGIN:VEVENT/g)||[]).length,1);});

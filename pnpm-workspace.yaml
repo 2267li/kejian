@@ -1,0 +1,4 @@
+# Reuse the existing dependency store on E:, without downloading a second copy.
+storeDir: E:/.pnpm-store
+cacheDir: E:/Project/kejian/.cache/pnpm
+stateDir: E:/Project/kejian/.cache/pnpm-state

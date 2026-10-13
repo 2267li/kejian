@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "version": "0.2.1",
+  "exeBytes": 978944,
+  "offline": true,
+  "externalPageRequests": 0,
+  "pageErrors": 0,
+  "miniToDesktopRecords": 8,
+  "desktopToMiniCompatibleRecords": 9,
+  "restartPersistence": true,
+  "isolatedDataDirectory": "E:\\Project\\kejian\\.cache\\desktop\\qa\\run-1791861630273\\便携程序\\课间数据",
+  "checks": [
+    "single EXE in a new folder",
+    "Chinese extraction",
+    "create/reload/edit/complete",
+    "input rendered as text",
+    "mini-program backup import",
+    "native backup/calendar file writing",
+    "invalid backup protection",
+    "replacement cancel/confirm",
+    "plain-language help",
+    "820px layout",
+    "full EXE restart"
+  ],
+  "nativeFileDialog": "automation chooses a test output path",
+  "realWeChatFilePicker": false
+}

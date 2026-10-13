@@ -1,0 +1,575 @@
+{
+  "passed": true,
+  "flows": 92,
+  "cases": 46,
+  "devices": [
+    "1440px desktop",
+    "390px mobile emulation"
+  ],
+  "checked": [
+    "paste",
+    "reference date",
+    "extraction fields",
+    "warnings",
+    "manual time confirmation",
+    "save",
+    "original source preserved",
+    "reload",
+    "ICS"
+  ],
+  "pageErrors": 0,
+  "results": [
+    {
+      "id": "S01",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S02",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S03",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S04",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S05",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S06",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S07",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S08",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S09",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S10",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S11",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S12",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S13",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S14",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S15",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S16",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S17",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S18",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S19",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S20",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S21",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S22",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S23",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S24",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S25",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S26",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S27",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S28",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S29",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S30",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S31",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S32",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S33",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S34",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S35",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S36",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S37",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S38",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S39",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S40",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "R01",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "R02",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": true
+    },
+    {
+      "id": "R03",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": true
+    },
+    {
+      "id": "R04",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": true
+    },
+    {
+      "id": "R05",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": true
+    },
+    {
+      "id": "R06",
+      "device": "desktop",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S01",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S02",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S03",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S04",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S05",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S06",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S07",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S08",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S09",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S10",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S11",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S12",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S13",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S14",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S15",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S16",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S17",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S18",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S19",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S20",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S21",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S22",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S23",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S24",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S25",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S26",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S27",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S28",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S29",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S30",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S31",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S32",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S33",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S34",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S35",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S36",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S37",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S38",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S39",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "S40",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "R01",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    },
+    {
+      "id": "R02",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": true
+    },
+    {
+      "id": "R03",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": true
+    },
+    {
+      "id": "R04",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": true
+    },
+    {
+      "id": "R05",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": true
+    },
+    {
+      "id": "R06",
+      "device": "phone",
+      "passed": true,
+      "manualConfirmation": false
+    }
+  ]
+}

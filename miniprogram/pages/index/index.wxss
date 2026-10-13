@@ -1,0 +1,56 @@
+.shell{max-width:1080px;margin:0 auto;padding:28px 22px 125px}.hero{display:flex;align-items:center;justify-content:space-between;margin:0 0 25px}.brand{display:flex;align-items:center;gap:12px}.brand-icon{width:46px;height:46px;background:#365be5;color:#fff;border-radius:15px;font-size:30px;text-align:center;line-height:46px}.brand-name{font-size:26px;font-weight:800;letter-spacing:2px}.muted{color:#6b7890;line-height:1.75}.small{font-size:12px}.local-badge{font-size:12px;color:#477b66;background:#eaf4ee;border:1px solid #d7eadf;border-radius:30px;padding:7px 12px}.workspace,.help-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}.card{background:#fff;border:1px solid #e6eaf2;border-radius:22px;padding:25px;box-shadow:0 5px 20px rgba(25,50,100,.025)}.eyebrow{color:#365be5;font-size:12px;font-weight:700;letter-spacing:2px}.heading{font-size:29px;line-height:1.4;font-weight:800;margin:10px 0}.section-heading{font-size:21px;font-weight:750;line-height:1.4;margin:8px 0 12px}.intro{margin-bottom:18px}.notice-input{width:100%;height:190px;padding:16px;background:#f8f9fc;border:1px solid #dee4ef;border-radius:14px;line-height:1.8}.reference-row{display:flex;align-items:center;justify-content:space-between;font-size:13px;margin:15px 0 4px}.date-value{padding:7px 10px;border:1px solid #e2e7f0;border-radius:9px;font-weight:600}.primary{background:#365be5;color:#fff}.secondary{background:#eef2fd;color:#365be5}.full{width:100%;margin-top:14px}.example-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:17px}.chip{font-size:11px;background:#f4f6fa;color:#5f6e88;padding:7px 9px;border-radius:20px}.footnote{margin-top:16px}.guidance{padding:42px 30px;background:#fcfdff;min-height:385px}.soft-icon{font-size:40px;color:#6480e7;margin-bottom:15px}.step{margin-top:25px;color:#64718b;font-size:14px}.warnings{padding:12px 14px;background:#fff5e4;border-radius:12px;color:#846028;font-size:12px;line-height:1.9;margin:12px 0}.evidence{margin:10px 0}.label{font-size:13px;font-weight:650;margin:15px 0 8px}.field{width:100%;height:44px;background:#f8f9fc;border:1px solid #dee4ef;border-radius:10px;padding:10px 12px;color:#263853}.picker{line-height:22px;font-size:13px}.disabled{color:#98a2b4}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.notes-input{height:110px;line-height:1.6}.text-button{display:inline-block;padding:9px 0;background:transparent;color:#5c709f;font-size:12px;font-weight:500}.action-row{display:flex;gap:10px;margin-top:18px}.grow{flex:1}.message{background:#edf3ff;border:1px solid #d4e2ff;color:#3b5d91;border-radius:12px;padding:13px 16px;margin-bottom:17px;line-height:1.6;font-size:13px}.danger{background:#fff0ee;color:#9c4b45;border-color:#f5d4d0}.board{max-width:760px;margin:0 auto}.board-top{display:flex;align-items:center;justify-content:space-between}.count-pill{border-radius:18px;padding:15px 20px;background:#e8edff;color:#365be5;font-size:28px;font-weight:750}.filters{display:flex;gap:6px;margin:20px 0}.filter{font-size:13px;padding:9px 18px;background:transparent;color:#7b88a0}.filter.active{background:#365be5;color:#fff}.task{padding:20px;margin-bottom:14px}.task-top{display:flex;align-items:flex-start;gap:13px}.check{width:27px;height:27px;min-width:27px;padding:0;margin:2px 0;background:#fff;border:2px solid #d4ddee;border-radius:9px;line-height:24px;font-size:17px}.check.checked{background:#e5ece8;border-color:#e5ece8;color:#588773}.task-body{flex:1;min-width:0}.task-title{font-size:17px;line-height:1.55;font-weight:650;word-break:break-all}.completed .task-title{text-decoration:line-through;color:#939dac}.task-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px}.tag{font-size:11px;background:#edf1fd;color:#526dba;padding:3px 8px;border-radius:6px}.late{color:#ba5c4c}.task-notes{color:#6b7890;font-size:13px;line-height:1.7;white-space:pre-wrap;word-break:break-all;margin-top:10px}.task-actions{display:flex;gap:20px;margin:10px 0 0 40px}.delete{margin-left:auto;color:#a28686}.source{background:#f8f9fc;font-size:13px;line-height:1.8;white-space:pre-wrap;word-break:break-all;padding:15px;border-radius:10px;margin-top:12px}.empty{text-align:center;padding:50px 20px}.empty .secondary{display:inline-block;margin-top:20px}.divider{height:1px;background:#edf0f6;margin:24px 0}.help-text{font-size:13px;color:#69768c;line-height:1.85;margin:12px 0}.paste-input{height:160px;font-size:12px;line-height:1.6;margin-top:10px}.import-panel{margin-top:18px;padding:15px;background:#f3f6ff;border-radius:12px}.radio-row{display:flex;align-items:center;font-size:12px;margin:12px 0}.radio-row radio{transform:scale(.8)}.navigation{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);width:430px;max-width:100%;display:flex;z-index:5;border:1px solid #e3e8f3;border-radius:20px;background:#fff;box-shadow:0 5px 25px rgba(32,52,100,.08);padding:6px}.nav-item{flex:1;background:transparent;border-radius:14px;padding:8px 5px;font-size:12px;color:#8190a8;font-weight:500}.nav-item.selected{background:#edf1ff;color:#365be5;font-weight:700}.nav-symbol{font-size:20px;height:27px;line-height:27px}.nav-count{font-size:11px;border-radius:10px;padding:1px 5px;background:#dce5ff;vertical-align:middle}
+@media(max-width:700px){.shell{padding:20px 15px 110px}.hero{margin-bottom:22px}.brand-name{font-size:24px}.brand .muted{font-size:12px}.brand-icon{width:42px;height:42px;line-height:42px}.local-badge{font-size:10px;padding:6px 8px}.workspace,.help-grid{grid-template-columns:1fr;gap:16px}.card{padding:20px;border-radius:18px}.heading{font-size:26px}.notice-input{height:185px}.guidance{display:none}.navigation{bottom:0;left:0;transform:none;width:100%;border-radius:16px 16px 0 0;border-bottom:0;padding:7px 10px calc(7px + env(safe-area-inset-bottom))}.nav-item{font-size:11px}.task-title{font-size:16px}.section-heading{font-size:20px}.field-grid{gap:8px}.picker{font-size:12px}.task{padding:17px}.task-actions{gap:17px}.count-pill{font-size:24px;padding:12px 17px}}
+
+/* Allow grid children to shrink below native textarea/input intrinsic widths. */
+.workspace,.help-grid,.field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card,.task-body{min-width:0}
+button.full{width:100%;margin-top:14px}
+.task button.check{width:27px;min-width:27px;max-width:27px;flex:0 0 27px}
+.filters button.filter{flex:1;min-width:0}
+/* Override v2's fixed button width so confirmation labels remain on one line. */
+.action-row{align-items:center}
+.action-row button.secondary,.action-row button.primary{width:auto;min-width:0;flex:0 0 auto;padding:11px 16px;font-size:14px;line-height:22px;white-space:nowrap}
+.action-row button.grow{width:0;flex:1 1 0}
+.action-row>text{flex-shrink:0;white-space:nowrap}
+/* Keep example choices compact, including under WeChat v2 button defaults. */
+.composer .reference-row{gap:12px;margin:16px 0 6px}
+.composer .reference-hint{font-size:11px;line-height:1.7}
+.composer button.primary.full{height:46px;margin:16px 0 0;padding:12px 10px;font-size:15px;line-height:22px;border-radius:12px;white-space:nowrap}
+.example-section{margin-top:20px}
+.example-label{color:#6b7890;font-size:12px;line-height:18px;margin-bottom:8px}
+.composer .example-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0}
+.example-row button.chip{width:100%;min-width:0;height:44px;margin:0;padding:12px 4px;border:1px solid #e5eaf5;border-radius:10px;background:#f5f7fc;color:#52678f;font-size:12px;font-weight:500;line-height:18px;white-space:nowrap}
+.composer-note{margin-top:16px;padding-top:12px;border-top:1px solid #edf0f6;color:#758198;font-size:11px;line-height:1.8}
+.help-page{max-width:900px;margin:0 auto}
+.help-header{margin-bottom:18px}
+.help-heading{font-size:26px;font-weight:750;line-height:1.4;margin:7px 0}
+.help-description{font-size:13px;line-height:1.75;color:#64738d}
+.help-title{font-size:16px;font-weight:650;line-height:1.5;margin-bottom:6px}
+.help-caption{font-size:11px;line-height:1.8;color:#738098}
+.backup-summary{display:flex;align-items:center;gap:12px}
+.backup-symbol{flex:0 0 40px;height:40px;border-radius:12px;background:#edf2ff;color:#365be5;font-size:24px;line-height:40px;text-align:center}
+.backup-count{font-size:16px;font-weight:650;line-height:1.6}
+.help-page button.full{min-width:0;height:44px;padding:11px 10px;font-size:14px;line-height:22px;border-radius:11px;white-space:nowrap}
+.help-page .help-restore{background:#f2f5ff;border:1px solid #e0e7fb;padding:10px}
+.action-caption{margin-top:7px}
+.help-separator{border-top:1px solid #edf0f6;margin:18px 0}
+.help-page button.help-disclosure{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-width:0;min-height:48px;padding:12px 0;margin:0;background:transparent;color:#344968;font-size:13px;font-weight:500;line-height:22px;border-radius:0;text-align:left}
+.backup-card button.help-disclosure{margin-top:12px;border-top:1px solid #edf0f6;color:#687a97;font-size:12px}
+.help-disclosure>text:first-child{flex:1;min-width:0}
+.help-chevron{flex:0 0 18px;color:#8291aa;font-size:17px;text-align:right}
+.text-backup{padding-top:2px}
+.help-page .paste-input{font-size:13px}
+.help-page .import-panel{padding:14px;margin-top:16px}
+.help-page .radio-row{align-items:flex-start;margin:18px 0}
+.help-page .radio-row radio{flex-shrink:0;margin-left:-5px}
+.restore-option{min-width:0;font-size:13px;line-height:1.7}
+.restore-option .help-caption{margin-top:3px}
+.help-side{min-width:0}
+.help-guide .help-title{margin-bottom:8px}
+.help-topic+.help-topic{border-top:1px solid #edf0f6}
+.help-answer{padding:0 0 16px;color:#64738d;font-size:13px;line-height:1.8}
+.transfer-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.step-number{flex:0 0 22px;background:#edf2ff;border-radius:7px;color:#365be5;font-size:12px;line-height:22px;text-align:center}
+.help-about{text-align:center;color:#61728b;font-size:12px;line-height:1.8;padding:22px 10px 0}
+.help-page button.help-share{width:auto;min-height:44px;display:inline-block;margin:8px 0 4px;padding:10px 12px;background:transparent;color:#365be5;font-size:13px;font-weight:600;line-height:24px}
+@media(max-width:700px){.workspace,.help-grid{grid-template-columns:minmax(0,1fr)}}

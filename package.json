@@ -1,0 +1,31 @@
+{
+  "name": "kejian-notice-todo",
+  "version": "0.2.1",
+  "private": true,
+  "packageManager": "pnpm@11.20.0",
+  "description": "课间：通知转待办，网页版与微信小程序",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "node scripts/build.cjs && node scripts/serve.cjs",
+    "build": "node scripts/build.cjs",
+    "test": "node scripts/build-miniprogram.cjs && node --test tests/core.test.cjs tests/corpus.test.cjs tests/miniprogram.test.cjs",
+    "build:wechat": "node scripts/build-miniprogram.cjs",
+    "check:wechat": "node scripts/build-miniprogram.cjs && node scripts/check-miniprogram.cjs",
+    "test:wechat": "node scripts/build-miniprogram.cjs && node --test tests/miniprogram.test.cjs",
+    "test:transfer": "node scripts/build.cjs && node tests/miniprogram-transfer.cjs",
+    "check": "node --check src/core.js && node --check src/app.js && node --check src/pwa.js && node --check src/sw.js && node --check scripts/build.cjs && node --check scripts/icons.cjs && node --check scripts/serve.cjs && node --check scripts/package.cjs && node --check tests/browser.cjs && node --check tests/pwa.cjs && node --check tests/evaluate.cjs && node --check tests/corpus-browser.cjs && node --check scripts/report-qa.cjs && node --check scripts/local-env.cjs && node --check tests/miniprogram-transfer.cjs && node --check tests/miniprogram-runtime.cjs",
+    "test:browser": "node scripts/build.cjs && node tests/browser.cjs && node tests/pwa.cjs && node tests/corpus-browser.cjs",
+    "package": "node scripts/package.cjs",
+    "test:corpus": "node tests/evaluate.cjs",
+    "report:qa": "node scripts/report-qa.cjs",
+    "wechat:open": "powershell -NoProfile -File scripts/wechat.ps1 -Action open",
+    "wechat:auto": "powershell -NoProfile -File scripts/wechat.ps1 -Action auto",
+    "test:wechat:runtime": "node tests/miniprogram-runtime.cjs",
+    "test:wechat:layout": "node tests/miniprogram-layout.cjs",
+    "build:desktop": "node scripts/build-desktop.cjs",
+    "test:desktop": "node tests/desktop.cjs",
+    "prepare:github": "node scripts/prepare-github.cjs"
+  }
+}

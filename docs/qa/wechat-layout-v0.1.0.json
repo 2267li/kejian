@@ -1,0 +1,135 @@
+{
+  "passed": true,
+  "SDKVersion": "3.12.1",
+  "windowWidth": 320,
+  "checks": [
+    {
+      "selector": ".example-row",
+      "buttons": [
+        {
+          "text": "实验作业",
+          "width": 78,
+          "height": 44,
+          "left": 36,
+          "top": 666
+        },
+        {
+          "text": "校园活动",
+          "width": 78,
+          "height": 44,
+          "left": 121.32500457763672,
+          "top": 666
+        },
+        {
+          "text": "考试安排",
+          "width": 77,
+          "height": 44,
+          "left": 206.65000915527344,
+          "top": 666
+        }
+      ],
+      "exampleTapsPassed": true
+    },
+    {
+      "selector": ".draft-card .action-row",
+      "buttons": [
+        {
+          "text": "取消",
+          "width": 60,
+          "height": 44,
+          "left": 36,
+          "top": 1385.4000244140625
+        },
+        {
+          "text": "确认，加入待办",
+          "width": 178,
+          "height": 44,
+          "left": 106,
+          "top": 1385.4000244140625
+        }
+      ]
+    },
+    {
+      "selector": ".draft-card .action-row",
+      "buttons": [
+        {
+          "text": "取消",
+          "width": 60,
+          "height": 44,
+          "left": 36,
+          "top": 1385.3999938964844
+        },
+        {
+          "text": "保存修改",
+          "width": 178,
+          "height": 44,
+          "left": 106,
+          "top": 1385.3999938964844
+        }
+      ]
+    },
+    {
+      "selector": ".help-page",
+      "buttons": [
+        {
+          "text": "保存一份备份",
+          "width": 248,
+          "height": 44,
+          "left": 36,
+          "top": 210.1999969482422
+        },
+        {
+          "text": "选择备份恢复",
+          "width": 248,
+          "height": 44,
+          "left": 36,
+          "top": 383.8000183105469
+        }
+      ],
+      "topicsPassed": 3,
+      "pasteRetained": true,
+      "emptyStatePassed": true
+    },
+    {
+      "selector": ".import-panel .action-row",
+      "buttons": [
+        {
+          "text": "取消",
+          "width": 60,
+          "height": 44,
+          "left": 50,
+          "top": 754
+        },
+        {
+          "text": "恢复待办",
+          "width": 150,
+          "height": 44,
+          "left": 120,
+          "top": 754
+        }
+      ]
+    },
+    {
+      "selector": ".board .action-row",
+      "buttons": [
+        {
+          "text": "上一页",
+          "width": 117,
+          "height": 44,
+          "left": 15,
+          "top": 518.2000122070312
+        },
+        {
+          "text": "下一页",
+          "width": 117,
+          "height": 44,
+          "left": 188.52500915527344,
+          "top": 518.2000122070312
+        }
+      ]
+    }
+  ],
+  "captureScreenshots": true,
+  "storageUnchanged": true,
+  "realPhone": false
+}

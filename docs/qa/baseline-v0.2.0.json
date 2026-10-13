@@ -1,0 +1,1540 @@
+{
+  "summary": {
+    "total": 46,
+    "passed": 25,
+    "failed": [
+      {
+        "id": "S05",
+        "name": "一刻",
+        "failures": [
+          "time: expected \"15:15\", got \"15:00\""
+        ]
+      },
+      {
+        "id": "S06",
+        "name": "三刻",
+        "failures": [
+          "time: expected \"15:45\", got \"15:00\""
+        ]
+      },
+      {
+        "id": "S07",
+        "name": "时分无分字",
+        "failures": [
+          "time: expected \"18:30\", got \"18:00\""
+        ]
+      },
+      {
+        "id": "S08",
+        "name": "全角冒号",
+        "failures": [
+          "time: expected \"17:00\", got \"\""
+        ]
+      },
+      {
+        "id": "S09",
+        "name": "全角数字",
+        "failures": [
+          "date: expected \"2026-10-14\", got \"\"",
+          "time: expected \"18:30\", got \"\""
+        ]
+      },
+      {
+        "id": "S10",
+        "name": "日期附星期",
+        "failures": [
+          "date: expected \"2026-10-21\", got \"\"",
+          "time: expected \"09:30\", got \"\""
+        ]
+      },
+      {
+        "id": "S11",
+        "name": "错误星期",
+        "failures": [
+          "date: expected \"2026-10-14\", got \"\"",
+          "time: expected \"14:00\", got \"\"",
+          "missing warning: 星期"
+        ]
+      },
+      {
+        "id": "S12",
+        "name": "午夜歧义",
+        "failures": [
+          "time: expected \"\", got \"12:00\"",
+          "missing warning: 午夜"
+        ]
+      },
+      {
+        "id": "S14",
+        "name": "中午冒号",
+        "failures": [
+          "time: expected \"13:30\", got \"01:30\""
+        ]
+      },
+      {
+        "id": "S15",
+        "name": "24点",
+        "failures": [
+          "missing warning: 有效"
+        ]
+      },
+      {
+        "id": "S16",
+        "name": "非法分钟",
+        "failures": [
+          "missing warning: 有效"
+        ]
+      },
+      {
+        "id": "S17",
+        "name": "无日期有时间",
+        "failures": [
+          "time: expected \"\", got \"15:00\"",
+          "time without date cannot be saved unchanged"
+        ]
+      },
+      {
+        "id": "S18",
+        "name": "日期范围省略月",
+        "failures": [
+          "date: expected \"\", got \"2026-10-12\"",
+          "missing warning: 多个日期"
+        ]
+      },
+      {
+        "id": "S19",
+        "name": "日期并列省略月",
+        "failures": [
+          "date: expected \"\", got \"2026-10-14\"",
+          "missing warning: 多个日期"
+        ]
+      },
+      {
+        "id": "S34",
+        "name": "无效日期附星期",
+        "failures": [
+          "date: expected \"\", got \"2026-10-12\"",
+          "time: expected \"\", got \"18:00\""
+        ]
+      },
+      {
+        "id": "S37",
+        "name": "平年非法日期",
+        "failures": [
+          "time: expected \"\", got \"18:00\"",
+          "time without date cannot be saved unchanged"
+        ]
+      },
+      {
+        "id": "S39",
+        "name": "中文月日",
+        "failures": [
+          "date: expected \"2026-10-14\", got \"\"",
+          "time without date cannot be saved unchanged"
+        ]
+      },
+      {
+        "id": "R01",
+        "name": "成都大学：报名材料截止",
+        "failures": [
+          "category: expected \"活动\", got \"作业\"",
+          "notes missing: 6414",
+          "notes missing: 盖章"
+        ]
+      },
+      {
+        "id": "R04",
+        "name": "天津商业大学：混合冒号",
+        "failures": [
+          "time: expected \"\", got \"14:30\"",
+          "missing warning: 多个时间"
+        ]
+      },
+      {
+        "id": "R05",
+        "name": "上海理工大学：报名和答辩两事项",
+        "failures": [
+          "category: expected \"活动\", got \"作业\""
+        ]
+      },
+      {
+        "id": "R06",
+        "name": "东南大学：全角冒号和盖章要求",
+        "failures": [
+          "date: expected \"2025-04-15\", got \"\"",
+          "time: expected \"17:00\", got \"\""
+        ]
+      }
+    ],
+    "groups": {
+      "synthetic": {
+        "total": 40,
+        "passed": 23
+      },
+      "public_notice_adapted": {
+        "total": 6,
+        "passed": 2
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "S01",
+      "kind": "synthetic",
+      "name": "明天晚间",
+      "text": "明天晚上八点前提交实验报告。格式为 PDF。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "20:00",
+        "category": "作业",
+        "titleIncludes": [
+          "提交",
+          "实验报告"
+        ],
+        "notesIncludes": [
+          "PDF"
+        ]
+      },
+      "actual": {
+        "title": "提交实验报告",
+        "date": "2026-10-13",
+        "time": "20:00",
+        "category": "作业",
+        "notes": "格式为 PDF",
+        "source": "明天晚上八点前提交实验报告。格式为 PDF。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S02",
+      "kind": "synthetic",
+      "name": "后天半点",
+      "text": "后天下午三点半参加摄影活动。地点：艺术楼。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-14",
+        "time": "15:30",
+        "category": "活动",
+        "notesIncludes": [
+          "艺术楼"
+        ]
+      },
+      "actual": {
+        "title": "参加摄影活动",
+        "date": "2026-10-14",
+        "time": "15:30",
+        "category": "活动",
+        "notes": "地点：艺术楼",
+        "source": "后天下午三点半参加摄影活动。地点：艺术楼。",
+        "evidence": "后天",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S03",
+      "kind": "synthetic",
+      "name": "今晚",
+      "text": "今晚八点前提交作业。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-12",
+        "time": "20:00",
+        "category": "作业"
+      },
+      "actual": {
+        "title": "提交作业",
+        "date": "2026-10-12",
+        "time": "20:00",
+        "category": "作业",
+        "notes": "",
+        "source": "今晚八点前提交作业。",
+        "evidence": "今晚",
+        "warnings": [
+          "没有识别到明确日期，可手动填写，或保存为“待定”。"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S04",
+      "kind": "synthetic",
+      "name": "中文分钟",
+      "text": "明天上午九点十五分参加考试。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "09:15",
+        "category": "考试"
+      },
+      "actual": {
+        "title": "参加考试",
+        "date": "2026-10-13",
+        "time": "09:15",
+        "category": "考试",
+        "notes": "",
+        "source": "明天上午九点十五分参加考试。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S05",
+      "kind": "synthetic",
+      "name": "一刻",
+      "text": "明天下午三点一刻参加讲座。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "15:15",
+        "category": "活动"
+      },
+      "actual": {
+        "title": "参加讲座",
+        "date": "2026-10-13",
+        "time": "15:00",
+        "category": "活动",
+        "notes": "",
+        "source": "明天下午三点一刻参加讲座。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [
+        "time: expected \"15:15\", got \"15:00\""
+      ],
+      "passed": false
+    },
+    {
+      "id": "S06",
+      "kind": "synthetic",
+      "name": "三刻",
+      "text": "明天下午三点三刻参加讲座。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "15:45",
+        "category": "活动"
+      },
+      "actual": {
+        "title": "参加讲座",
+        "date": "2026-10-13",
+        "time": "15:00",
+        "category": "活动",
+        "notes": "",
+        "source": "明天下午三点三刻参加讲座。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [
+        "time: expected \"15:45\", got \"15:00\""
+      ],
+      "passed": false
+    },
+    {
+      "id": "S07",
+      "kind": "synthetic",
+      "name": "时分无分字",
+      "text": "明天18时30提交作业。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "18:30",
+        "category": "作业"
+      },
+      "actual": {
+        "title": "提交作业",
+        "date": "2026-10-13",
+        "time": "18:00",
+        "category": "作业",
+        "notes": "",
+        "source": "明天18时30提交作业。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [
+        "time: expected \"18:30\", got \"18:00\""
+      ],
+      "passed": false
+    },
+    {
+      "id": "S08",
+      "kind": "synthetic",
+      "name": "全角冒号",
+      "text": "2026年10月14日17：00前提交报告。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-14",
+        "time": "17:00",
+        "category": "作业"
+      },
+      "actual": {
+        "title": "提交报告",
+        "date": "2026-10-14",
+        "time": "",
+        "category": "作业",
+        "notes": "",
+        "source": "2026年10月14日17：00前提交报告。",
+        "evidence": "2026年10月14日",
+        "warnings": []
+      },
+      "failures": [
+        "time: expected \"17:00\", got \"\""
+      ],
+      "passed": false
+    },
+    {
+      "id": "S09",
+      "kind": "synthetic",
+      "name": "全角数字",
+      "text": "２０２６年１０月１４日１８：３０前提交作业。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-14",
+        "time": "18:30",
+        "category": "作业"
+      },
+      "actual": {
+        "title": "提交作业",
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "notes": "",
+        "source": "２０２６年１０月１４日１８：３０前提交作业。",
+        "evidence": "",
+        "warnings": [
+          "没有识别到明确日期，可手动填写，或保存为“待定”。"
+        ]
+      },
+      "failures": [
+        "date: expected \"2026-10-14\", got \"\"",
+        "time: expected \"18:30\", got \"\""
+      ],
+      "passed": false
+    },
+    {
+      "id": "S10",
+      "kind": "synthetic",
+      "name": "日期附星期",
+      "text": "2026年10月21日（周三）09:30参加考试。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-21",
+        "time": "09:30",
+        "category": "考试"
+      },
+      "actual": {
+        "title": "参加考试",
+        "date": "",
+        "time": "",
+        "category": "考试",
+        "notes": "",
+        "source": "2026年10月21日（周三）09:30参加考试。",
+        "evidence": "",
+        "warnings": [
+          "“周三”暂按通知当周理解，请核对。",
+          "原文包含多个日期，可能有开始时间和截止时间。请手动选择截止日期。"
+        ]
+      },
+      "failures": [
+        "date: expected \"2026-10-21\", got \"\"",
+        "time: expected \"09:30\", got \"\""
+      ],
+      "passed": false
+    },
+    {
+      "id": "S11",
+      "kind": "synthetic",
+      "name": "错误星期",
+      "text": "2026年10月14日（周五）14:00参加讲座。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-14",
+        "time": "14:00",
+        "category": "活动",
+        "warning": "星期"
+      },
+      "actual": {
+        "title": "参加讲座",
+        "date": "",
+        "time": "",
+        "category": "活动",
+        "notes": "",
+        "source": "2026年10月14日（周五）14:00参加讲座。",
+        "evidence": "",
+        "warnings": [
+          "“周五”暂按通知当周理解，请核对。",
+          "原文包含多个日期，可能有开始时间和截止时间。请手动选择截止日期。"
+        ]
+      },
+      "failures": [
+        "date: expected \"2026-10-14\", got \"\"",
+        "time: expected \"14:00\", got \"\"",
+        "missing warning: 星期"
+      ],
+      "passed": false
+    },
+    {
+      "id": "S12",
+      "kind": "synthetic",
+      "name": "午夜歧义",
+      "text": "明天晚上十二点前提交报告。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "",
+        "category": "作业",
+        "warning": "午夜"
+      },
+      "actual": {
+        "title": "提交报告",
+        "date": "2026-10-13",
+        "time": "12:00",
+        "category": "作业",
+        "notes": "",
+        "source": "明天晚上十二点前提交报告。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [
+        "time: expected \"\", got \"12:00\"",
+        "missing warning: 午夜"
+      ],
+      "passed": false
+    },
+    {
+      "id": "S13",
+      "kind": "synthetic",
+      "name": "凌晨零点",
+      "text": "明天凌晨十二点提交作业。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "00:00",
+        "category": "作业"
+      },
+      "actual": {
+        "title": "提交作业",
+        "date": "2026-10-13",
+        "time": "00:00",
+        "category": "作业",
+        "notes": "",
+        "source": "明天凌晨十二点提交作业。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S14",
+      "kind": "synthetic",
+      "name": "中午冒号",
+      "text": "明天中午1:30参加讲座。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "13:30",
+        "category": "活动"
+      },
+      "actual": {
+        "title": "参加讲座",
+        "date": "2026-10-13",
+        "time": "01:30",
+        "category": "活动",
+        "notes": "",
+        "source": "明天中午1:30参加讲座。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [
+        "time: expected \"13:30\", got \"01:30\""
+      ],
+      "passed": false
+    },
+    {
+      "id": "S15",
+      "kind": "synthetic",
+      "name": "24点",
+      "text": "明天24:00前提交作业。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "",
+        "category": "作业",
+        "warning": "有效"
+      },
+      "actual": {
+        "title": "提交作业",
+        "date": "2026-10-13",
+        "time": "",
+        "category": "作业",
+        "notes": "",
+        "source": "明天24:00前提交作业。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [
+        "missing warning: 有效"
+      ],
+      "passed": false
+    },
+    {
+      "id": "S16",
+      "kind": "synthetic",
+      "name": "非法分钟",
+      "text": "明天18:90前提交作业。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "",
+        "category": "作业",
+        "warning": "有效"
+      },
+      "actual": {
+        "title": "提交作业",
+        "date": "2026-10-13",
+        "time": "",
+        "category": "作业",
+        "notes": "",
+        "source": "明天18:90前提交作业。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [
+        "missing warning: 有效"
+      ],
+      "passed": false
+    },
+    {
+      "id": "S17",
+      "kind": "synthetic",
+      "name": "无日期有时间",
+      "text": "下午三点提交实验报告。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "warning": "日期"
+      },
+      "actual": {
+        "title": "提交实验报告",
+        "date": "",
+        "time": "15:00",
+        "category": "作业",
+        "notes": "",
+        "source": "下午三点提交实验报告。",
+        "evidence": "",
+        "warnings": [
+          "没有识别到明确日期，可手动填写，或保存为“待定”。"
+        ]
+      },
+      "failures": [
+        "time: expected \"\", got \"15:00\"",
+        "time without date cannot be saved unchanged"
+      ],
+      "passed": false
+    },
+    {
+      "id": "S18",
+      "kind": "synthetic",
+      "name": "日期范围省略月",
+      "text": "10月12日至14日参加活动。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "",
+        "time": "",
+        "category": "活动",
+        "warning": "多个日期"
+      },
+      "actual": {
+        "title": "参加活动",
+        "date": "2026-10-12",
+        "time": "",
+        "category": "活动",
+        "notes": "",
+        "source": "10月12日至14日参加活动。",
+        "evidence": "10月12日",
+        "warnings": [
+          "原文未写年份，暂按通知日期所在年份填写；跨年通知请修改。"
+        ]
+      },
+      "failures": [
+        "date: expected \"\", got \"2026-10-12\"",
+        "missing warning: 多个日期"
+      ],
+      "passed": false
+    },
+    {
+      "id": "S19",
+      "kind": "synthetic",
+      "name": "日期并列省略月",
+      "text": "10月14日、16日分别参加讲座。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "",
+        "time": "",
+        "category": "活动",
+        "warning": "多个日期"
+      },
+      "actual": {
+        "title": "参加讲座",
+        "date": "2026-10-14",
+        "time": "",
+        "category": "活动",
+        "notes": "",
+        "source": "10月14日、16日分别参加讲座。",
+        "evidence": "10月14日",
+        "warnings": [
+          "原文未写年份，暂按通知日期所在年份填写；跨年通知请修改。"
+        ]
+      },
+      "failures": [
+        "date: expected \"\", got \"2026-10-14\"",
+        "missing warning: 多个日期"
+      ],
+      "passed": false
+    },
+    {
+      "id": "S20",
+      "kind": "synthetic",
+      "name": "完整日期范围",
+      "text": "2026年10月12日至2026年10月14日参加活动。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "",
+        "time": "",
+        "category": "活动",
+        "warning": "多个日期"
+      },
+      "actual": {
+        "title": "参加活动",
+        "date": "",
+        "time": "",
+        "category": "活动",
+        "notes": "",
+        "source": "2026年10月12日至2026年10月14日参加活动。",
+        "evidence": "",
+        "warnings": [
+          "原文包含多个日期，可能有开始时间和截止时间。请手动选择截止日期。"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S21",
+      "kind": "synthetic",
+      "name": "同日多个时间",
+      "text": "明天09:00签到，10:00参加考试。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "",
+        "category": "考试",
+        "warning": "多个时间"
+      },
+      "actual": {
+        "title": "参加考试",
+        "date": "2026-10-13",
+        "time": "",
+        "category": "考试",
+        "notes": "",
+        "source": "明天09:00签到，10:00参加考试。",
+        "evidence": "明天",
+        "warnings": [
+          "原文包含多个时间，请手动核对截止时刻。"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S22",
+      "kind": "synthetic",
+      "name": "同一时间重复",
+      "text": "明天18:00交作业，截止时间18:00。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "18:00",
+        "category": "作业"
+      },
+      "actual": {
+        "title": "明天18:00交作业，截止时间18:00",
+        "date": "2026-10-13",
+        "time": "18:00",
+        "category": "作业",
+        "notes": "",
+        "source": "明天18:00交作业，截止时间18:00。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S23",
+      "kind": "synthetic",
+      "name": "秒数",
+      "text": "2026-10-14 14:30:00参加讲座。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-14",
+        "time": "14:30",
+        "category": "活动"
+      },
+      "actual": {
+        "title": "参加讲座",
+        "date": "2026-10-14",
+        "time": "14:30",
+        "category": "活动",
+        "notes": "",
+        "source": "2026-10-14 14:30:00参加讲座。",
+        "evidence": "2026-10-14",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S24",
+      "kind": "synthetic",
+      "name": "无日期",
+      "text": "提交实验报告，格式 PDF，文件名：学号-姓名。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "warning": "日期"
+      },
+      "actual": {
+        "title": "提交实验报告",
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "notes": "提交实验报告，格式 PDF，文件名：学号-姓名",
+        "source": "提交实验报告，格式 PDF，文件名：学号-姓名。",
+        "evidence": "",
+        "warnings": [
+          "没有识别到明确日期，可手动填写，或保存为“待定”。"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S25",
+      "kind": "synthetic",
+      "name": "月底模糊",
+      "text": "月底前提交论文。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "warning": "日期"
+      },
+      "actual": {
+        "title": "提交论文",
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "notes": "",
+        "source": "月底前提交论文。",
+        "evidence": "",
+        "warnings": [
+          "没有识别到明确日期，可手动填写，或保存为“待定”。"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S26",
+      "kind": "synthetic",
+      "name": "下周",
+      "text": "下周一上午九点参加测验。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-19",
+        "time": "09:00",
+        "category": "考试"
+      },
+      "actual": {
+        "title": "参加测验",
+        "date": "2026-10-19",
+        "time": "09:00",
+        "category": "考试",
+        "notes": "",
+        "source": "下周一上午九点参加测验。",
+        "evidence": "下周一",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S27",
+      "kind": "synthetic",
+      "name": "下下周",
+      "text": "下下周日16:00完成报名。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-11-01",
+        "time": "16:00",
+        "category": "活动"
+      },
+      "actual": {
+        "title": "完成报名",
+        "date": "2026-11-01",
+        "time": "16:00",
+        "category": "活动",
+        "notes": "",
+        "source": "下下周日16:00完成报名。",
+        "evidence": "下下周日",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S28",
+      "kind": "synthetic",
+      "name": "发送当天",
+      "text": "今天18:00上传实验报告。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-12",
+        "time": "18:00",
+        "category": "作业"
+      },
+      "actual": {
+        "title": "上传实验报告",
+        "date": "2026-10-12",
+        "time": "18:00",
+        "category": "作业",
+        "notes": "",
+        "source": "今天18:00上传实验报告。",
+        "evidence": "今天",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S29",
+      "kind": "synthetic",
+      "name": "ISO日期",
+      "text": "2026-10-21 17:00报名摄影活动。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-21",
+        "time": "17:00",
+        "category": "活动"
+      },
+      "actual": {
+        "title": "报名摄影活动",
+        "date": "2026-10-21",
+        "time": "17:00",
+        "category": "活动",
+        "notes": "",
+        "source": "2026-10-21 17:00报名摄影活动。",
+        "evidence": "2026-10-21",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S30",
+      "kind": "synthetic",
+      "name": "斜杠日期",
+      "text": "2026/10/21 17:00完成比赛报名。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-21",
+        "time": "17:00",
+        "category": "活动"
+      },
+      "actual": {
+        "title": "完成比赛报名",
+        "date": "2026-10-21",
+        "time": "17:00",
+        "category": "活动",
+        "notes": "",
+        "source": "2026/10/21 17:00完成比赛报名。",
+        "evidence": "2026/10/21",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S31",
+      "kind": "synthetic",
+      "name": "点分日期",
+      "text": "2026.10.21 17:00完成比赛报名。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-21",
+        "time": "17:00",
+        "category": "活动"
+      },
+      "actual": {
+        "title": "完成比赛报名",
+        "date": "2026-10-21",
+        "time": "17:00",
+        "category": "活动",
+        "notes": "",
+        "source": "2026.10.21 17:00完成比赛报名。",
+        "evidence": "2026.10.21",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S32",
+      "kind": "synthetic",
+      "name": "资料要求",
+      "text": "明天18:00提交论文。需 PDF 电子版，文件名：学号-姓名。发送至 teaching@example.invalid。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "18:00",
+        "category": "作业",
+        "notesIncludes": [
+          "PDF",
+          "学号",
+          "teaching@example.invalid"
+        ]
+      },
+      "actual": {
+        "title": "提交论文",
+        "date": "2026-10-13",
+        "time": "18:00",
+        "category": "作业",
+        "notes": "需 PDF 电子版，文件名：学号-姓名\n发送至 teaching@example.invalid",
+        "source": "明天18:00提交论文。需 PDF 电子版，文件名：学号-姓名。发送至 teaching@example.invalid。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S33",
+      "kind": "synthetic",
+      "name": "网页代码原样",
+      "text": "明天18:00提交作业 <img src=x onerror=alert(1)>。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-13",
+        "time": "18:00",
+        "category": "作业"
+      },
+      "actual": {
+        "title": "提交作业 <img src=x onerror=alert(1)>",
+        "date": "2026-10-13",
+        "time": "18:00",
+        "category": "作业",
+        "notes": "",
+        "source": "明天18:00提交作业 <img src=x onerror=alert(1)>。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S34",
+      "kind": "synthetic",
+      "name": "无效日期附星期",
+      "text": "2026年2月30日（周一）18:00交报告。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "warning": "有效"
+      },
+      "actual": {
+        "title": "2026年2月30日（周一）18:00交报告",
+        "date": "2026-10-12",
+        "time": "18:00",
+        "category": "作业",
+        "notes": "",
+        "source": "2026年2月30日（周一）18:00交报告。",
+        "evidence": "周一",
+        "warnings": [
+          "“2026年2月30日”不是有效日期，请手动填写。",
+          "“周一”暂按通知当周理解，请核对。"
+        ]
+      },
+      "failures": [
+        "date: expected \"\", got \"2026-10-12\"",
+        "time: expected \"\", got \"18:00\""
+      ],
+      "passed": false
+    },
+    {
+      "id": "S35",
+      "kind": "synthetic",
+      "name": "跨年明天",
+      "text": "明天上午九点提交报告。",
+      "base": "2026-12-31",
+      "mode": "extract",
+      "expected": {
+        "date": "2027-01-01",
+        "time": "09:00",
+        "category": "作业"
+      },
+      "actual": {
+        "title": "提交报告",
+        "date": "2027-01-01",
+        "time": "09:00",
+        "category": "作业",
+        "notes": "",
+        "source": "明天上午九点提交报告。",
+        "evidence": "明天",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S36",
+      "kind": "synthetic",
+      "name": "闰年",
+      "text": "2028年2月29日18:00提交论文。",
+      "base": "2028-02-01",
+      "mode": "extract",
+      "expected": {
+        "date": "2028-02-29",
+        "time": "18:00",
+        "category": "作业"
+      },
+      "actual": {
+        "title": "提交论文",
+        "date": "2028-02-29",
+        "time": "18:00",
+        "category": "作业",
+        "notes": "",
+        "source": "2028年2月29日18:00提交论文。",
+        "evidence": "2028年2月29日",
+        "warnings": []
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S37",
+      "kind": "synthetic",
+      "name": "平年非法日期",
+      "text": "2026年2月29日18:00提交论文。",
+      "base": "2026-02-01",
+      "mode": "review",
+      "expected": {
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "warning": "有效"
+      },
+      "actual": {
+        "title": "提交论文",
+        "date": "",
+        "time": "18:00",
+        "category": "作业",
+        "notes": "",
+        "source": "2026年2月29日18:00提交论文。",
+        "evidence": "",
+        "warnings": [
+          "“2026年2月29日”不是有效日期，请手动填写。"
+        ]
+      },
+      "failures": [
+        "time: expected \"\", got \"18:00\"",
+        "time without date cannot be saved unchanged"
+      ],
+      "passed": false
+    },
+    {
+      "id": "S38",
+      "kind": "synthetic",
+      "name": "省略年份跨年",
+      "text": "1月3日18:00提交论文。",
+      "base": "2026-12-30",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-01-03",
+        "time": "18:00",
+        "category": "作业",
+        "warning": "跨年"
+      },
+      "actual": {
+        "title": "提交论文",
+        "date": "2026-01-03",
+        "time": "18:00",
+        "category": "作业",
+        "notes": "",
+        "source": "1月3日18:00提交论文。",
+        "evidence": "1月3日",
+        "warnings": [
+          "原文未写年份，暂按通知日期所在年份填写；跨年通知请修改。",
+          "提取的日期早于通知日期，请核对是否跨周或跨年。"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "S39",
+      "kind": "synthetic",
+      "name": "中文月日",
+      "text": "十月十四日下午三点参加讲座。",
+      "base": "2026-10-12",
+      "mode": "extract",
+      "expected": {
+        "date": "2026-10-14",
+        "time": "15:00",
+        "category": "活动"
+      },
+      "actual": {
+        "title": "参加讲座",
+        "date": "",
+        "time": "15:00",
+        "category": "活动",
+        "notes": "",
+        "source": "十月十四日下午三点参加讲座。",
+        "evidence": "",
+        "warnings": [
+          "没有识别到明确日期，可手动填写，或保存为“待定”。"
+        ]
+      },
+      "failures": [
+        "date: expected \"2026-10-14\", got \"\"",
+        "time without date cannot be saved unchanged"
+      ],
+      "passed": false
+    },
+    {
+      "id": "S40",
+      "kind": "synthetic",
+      "name": "矛盾日期",
+      "text": "2026年10月14日提交作业，明天截止。",
+      "base": "2026-10-12",
+      "mode": "review",
+      "expected": {
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "warning": "多个日期"
+      },
+      "actual": {
+        "title": "提交作业",
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "notes": "",
+        "source": "2026年10月14日提交作业，明天截止。",
+        "evidence": "",
+        "warnings": [
+          "原文包含多个日期，可能有开始时间和截止时间。请手动选择截止日期。"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "R01",
+      "name": "成都大学：报名材料截止",
+      "base": "2026-09-10",
+      "text": "学院统一汇总实验室安全应急技能竞赛报名材料。报名截止：2026年9月18日 17:00。纸件需学院盖章，交至六教6414室；电子件另发指定邮箱。",
+      "expected": {
+        "date": "2026-09-18",
+        "time": "17:00",
+        "category": "活动",
+        "notesIncludes": [
+          "6414",
+          "盖章"
+        ]
+      },
+      "mode": "extract",
+      "source": {
+        "title": "成都大学实验室安全应急技能竞赛校内遴选通知",
+        "url": "https://cxcyxy.cdu.edu.cn/info/1019/4375.htm",
+        "published": "2026-09-10",
+        "evidence": "报名截止：2026年9月18日 17:00",
+        "accessed": "2026-10-12",
+        "method": "人工核对官网正文/搜索索引后摘编；保留关键时间格式，非原文全文，不含真实个人联系方式。"
+      },
+      "kind": "public_notice_adapted",
+      "actual": {
+        "title": "报名材料",
+        "date": "2026-09-18",
+        "time": "17:00",
+        "category": "作业",
+        "notes": "电子件另发指定邮箱",
+        "source": "学院统一汇总实验室安全应急技能竞赛报名材料。报名截止：2026年9月18日 17:00。纸件需学院盖章，交至六教6414室；电子件另发指定邮箱。",
+        "evidence": "2026年9月18日",
+        "warnings": []
+      },
+      "failures": [
+        "category: expected \"活动\", got \"作业\"",
+        "notes missing: 6414",
+        "notes missing: 盖章"
+      ],
+      "passed": false
+    },
+    {
+      "id": "R02",
+      "name": "山东大学：培训时间段",
+      "base": "2026-03-17",
+      "text": "参加 AI 平台操作培训讲座。时间：2026年3月19日14:30-16:00。地点在生命南楼201室。",
+      "expected": {
+        "date": "2026-03-19",
+        "time": "",
+        "category": "活动",
+        "warning": "多个时间",
+        "notesIncludes": [
+          "201"
+        ]
+      },
+      "mode": "review",
+      "source": {
+        "title": "山东大学新闻传播学院AI平台操作技能培训会",
+        "url": "https://www.jc.sdu.edu.cn/info/1363/13865.htm",
+        "published": "2026-03-17",
+        "evidence": "2026年3月19日14:30-16:00",
+        "accessed": "2026-10-12",
+        "method": "人工核对官网正文/搜索索引后摘编；保留关键时间格式，非原文全文，不含真实个人联系方式。"
+      },
+      "kind": "public_notice_adapted",
+      "actual": {
+        "title": "参加 AI 平台操作培训讲座",
+        "date": "2026-03-19",
+        "time": "",
+        "category": "活动",
+        "notes": "地点在生命南楼201室",
+        "source": "参加 AI 平台操作培训讲座。时间：2026年3月19日14:30-16:00。地点在生命南楼201室。",
+        "evidence": "2026年3月19日",
+        "warnings": [
+          "原文包含多个时间，请手动核对截止时刻。"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "R03",
+      "name": "长江大学：日期附本周五",
+      "base": "2026-09-16",
+      "text": "参加 AI 科研工具主题讲座。时间为2026年9月18日（本周五）下午14:30-16:00；地点在东校区图书馆的一楼电子阅览室。",
+      "expected": {
+        "date": "2026-09-18",
+        "time": "",
+        "category": "活动",
+        "warning": "多个时间",
+        "notesIncludes": [
+          "电子阅览室"
+        ]
+      },
+      "mode": "review",
+      "source": {
+        "title": "长江大学图书馆AI时代的可信科研工作助手专题讲座",
+        "url": "https://lib.yangtzeu.edu.cn/info/1081/5590.htm",
+        "published": "2026-09-16",
+        "evidence": "2026年9月18日（本周五）下午14:30-16:00",
+        "accessed": "2026-10-12",
+        "method": "人工核对官网正文/搜索索引后摘编；保留关键时间格式，非原文全文，不含真实个人联系方式。"
+      },
+      "kind": "public_notice_adapted",
+      "actual": {
+        "title": "参加 AI 科研工具主题讲座",
+        "date": "2026-09-18",
+        "time": "",
+        "category": "活动",
+        "notes": "地点在东校区图书馆的一楼电子阅览室",
+        "source": "参加 AI 科研工具主题讲座。时间为2026年9月18日（本周五）下午14:30-16:00；地点在东校区图书馆的一楼电子阅览室。",
+        "evidence": "2026年9月18日、本周五",
+        "warnings": [
+          "原文包含多个时间，请手动核对截止时刻。"
+        ]
+      },
+      "failures": [],
+      "passed": true
+    },
+    {
+      "id": "R04",
+      "name": "天津商业大学：混合冒号",
+      "base": "2026-03-23",
+      "text": "参加雨课堂教学工作坊讲座。时间：2026年3月27日（周五）下午14:30-16：00；地点为冷链大楼 A507。",
+      "expected": {
+        "date": "2026-03-27",
+        "time": "",
+        "category": "活动",
+        "warning": "多个时间",
+        "notesIncludes": [
+          "A507"
+        ]
+      },
+      "mode": "review",
+      "source": {
+        "title": "天津商业大学数智赋能教学实操工作坊",
+        "url": "https://www.tjcu.edu.cn/info/1081/25344.htm",
+        "published": "2026-03-23",
+        "evidence": "2026年3月27日（周五）下午14:30-16：00",
+        "accessed": "2026-10-12",
+        "method": "人工核对官网正文/搜索索引后摘编；保留关键时间格式，非原文全文，不含真实个人联系方式。"
+      },
+      "kind": "public_notice_adapted",
+      "actual": {
+        "title": "参加雨课堂教学工作坊讲座",
+        "date": "2026-03-27",
+        "time": "14:30",
+        "category": "活动",
+        "notes": "地点为冷链大楼 A507",
+        "source": "参加雨课堂教学工作坊讲座。时间：2026年3月27日（周五）下午14:30-16：00；地点为冷链大楼 A507。",
+        "evidence": "2026年3月27日、周五",
+        "warnings": [
+          "“周五”暂按通知当周理解，请核对。"
+        ]
+      },
+      "failures": [
+        "time: expected \"\", got \"14:30\"",
+        "missing warning: 多个时间"
+      ],
+      "passed": false
+    },
+    {
+      "id": "R05",
+      "name": "上海理工大学：报名和答辩两事项",
+      "base": "2025-06-11",
+      "text": "本科毕业论文展示活动：6月16日（下周一）下午17:00前将报名资料提交学院邮箱。学生准备六分钟答辩幻灯片，答辩暂安排6月18日15:00，地点为能动学院二办208。",
+      "expected": {
+        "date": "",
+        "time": "",
+        "category": "活动",
+        "warning": "多个日期",
+        "notesIncludes": [
+          "邮箱",
+          "208"
+        ]
+      },
+      "mode": "review",
+      "source": {
+        "title": "上海理工大学能源动力类优秀本科毕业论文展示交流通知",
+        "url": "https://ndxy.usst.edu.cn/2025/0611/c14345a343081/page.htm",
+        "published": "2025-06-11",
+        "evidence": "6月16日（下周一）下午17:00前",
+        "accessed": "2026-10-12",
+        "method": "人工核对官网正文/搜索索引后摘编；保留关键时间格式，非原文全文，不含真实个人联系方式。"
+      },
+      "kind": "public_notice_adapted",
+      "actual": {
+        "title": "报名资料提交学院邮箱",
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "notes": "本科毕业论文展示活动：6月16日（下周一）下午17:00前将报名资料提交学院邮箱\n学生准备六分钟答辩幻灯片，答辩暂安排6月18日15:00，地点为能动学院二办208",
+        "source": "本科毕业论文展示活动：6月16日（下周一）下午17:00前将报名资料提交学院邮箱。学生准备六分钟答辩幻灯片，答辩暂安排6月18日15:00，地点为能动学院二办208。",
+        "evidence": "",
+        "warnings": [
+          "原文未写年份，暂按通知日期所在年份填写；跨年通知请修改。",
+          "原文包含多个日期，可能有开始时间和截止时间。请手动选择截止日期。",
+          "原文包含多个时间，请手动核对截止时刻。"
+        ]
+      },
+      "failures": [
+        "category: expected \"活动\", got \"作业\""
+      ],
+      "passed": false
+    },
+    {
+      "id": "R06",
+      "name": "东南大学：全角冒号和盖章要求",
+      "base": "2025-04-08",
+      "text": "优秀学术论文推选：学院汇总申报材料，2025年4月15日（周二）17：00前报送。申报书及汇总表需签字盖章后发送电子文件。不受理个人直接申报。",
+      "expected": {
+        "date": "2025-04-15",
+        "time": "17:00",
+        "category": "作业",
+        "notesIncludes": [
+          "盖章"
+        ]
+      },
+      "mode": "extract",
+      "source": {
+        "title": "东南大学江苏省自然科学百篇优秀学术成果论文推选通知",
+        "url": "https://kjc.seu.edu.cn/ddkx/2025/0408/c51414a524259/page.htm",
+        "published": "2025-04-08",
+        "evidence": "4月15日（周二）17：00前",
+        "accessed": "2026-10-12",
+        "method": "人工核对官网正文/搜索索引后摘编；保留关键时间格式，非原文全文，不含真实个人联系方式。"
+      },
+      "kind": "public_notice_adapted",
+      "actual": {
+        "title": "优秀学术论文推选：学院汇总申报材料，2025年4月15日（周二）17：00前报送",
+        "date": "",
+        "time": "",
+        "category": "作业",
+        "notes": "申报书及汇总表需签字盖章后发送电子文件",
+        "source": "优秀学术论文推选：学院汇总申报材料，2025年4月15日（周二）17：00前报送。申报书及汇总表需签字盖章后发送电子文件。不受理个人直接申报。",
+        "evidence": "",
+        "warnings": [
+          "“周二”暂按通知当周理解，请核对。",
+          "原文包含多个日期，可能有开始时间和截止时间。请手动选择截止日期。"
+        ]
+      },
+      "failures": [
+        "date: expected \"2025-04-15\", got \"\"",
+        "time: expected \"17:00\", got \"\""
+      ],
+      "passed": false
+    }
+  ]
+}

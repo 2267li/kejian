@@ -1,0 +1,4 @@
+{
+  "desc": "仅公开产品入口，不包含用户通知和待办。",
+  "rules": [{ "action": "allow", "page": "pages/index/index" }]
+}

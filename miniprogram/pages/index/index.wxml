@@ -1,0 +1,107 @@
+<view class="shell">
+  <view wx:if="{{view !== 'help'}}" class="hero">
+    <view class="brand"><view class="brand-icon">✓</view><view><view class="brand-name">课间</view><view class="muted">通知收好，心里有数。</view></view></view>
+    <view class="local-badge">本地保存 · 免费使用</view>
+  </view>
+
+  <view wx:if="{{storageError}}" class="message danger">{{storageError}}</view>
+  <view wx:if="{{status}}" class="message" role="status">{{status}}</view>
+
+  <view wx:if="{{view === 'compose'}}" class="workspace">
+    <view class="card composer">
+      <text class="eyebrow">收通知</text>
+      <view class="heading"><view>群消息太多？</view><view>先把要做的事留下。</view></view>
+      <view class="muted intro">粘贴一条通知，整理成草稿，核对后再保存。</view>
+      <textarea class="notice-input" value="{{notice}}" bindinput="inputNotice" maxlength="10000" placeholder="例如：下周三晚上八点前提交实验报告。格式为 PDF，文件名为学号＋姓名。" placeholder-style="color:#8b95a8" disable-default-padding="{{true}}" />
+      <view class="reference-row"><text>通知发送日期</text><picker mode="date" value="{{reference}}" start="1900-01-01" end="2199-12-31" bindchange="changeReference"><view class="date-value">{{reference}} ▾</view></picker></view>
+      <view class="small muted reference-hint">“明天”“下周”都以这一天为准。</view>
+      <button class="primary full" bindtap="extractNotice">整理成待办草稿</button>
+      <view class="example-section">
+        <view class="example-label">试试示例</view>
+        <view class="example-row"><button class="chip" data-example="homework" bindtap="useExample">实验作业</button><button class="chip" data-example="event" bindtap="useExample">校园活动</button><button class="chip" data-example="exam" bindtap="useExample">考试安排</button></view>
+      </view>
+      <view class="composer-note"><view>本地处理，保存前请核对。</view><view>暂不支持图片、PDF、Word。</view></view>
+    </view>
+
+    <view wx:if="{{draft}}" class="card draft-card">
+      <text class="eyebrow">{{editingId ? '编辑待办' : '核对草稿'}}</text>
+      <view class="section-heading">{{editingId ? '修改这条待办' : '核对一下，再收好'}}</view>
+      <view wx:if="{{draft.warnings.length}}" class="warnings"><view wx:for="{{draft.warnings}}" wx:key="*this">· {{item}}</view></view>
+      <view wx:if="{{draft.evidence}}" class="small muted evidence">日期依据：{{draft.evidence}}</view>
+      <view class="label">要做的事</view><input class="field" value="{{draft.title}}" maxlength="120" data-field="title" bindinput="inputDraft" placeholder="填写待办标题" />
+      <view class="field-grid">
+        <view><view class="label">截止日期</view><picker mode="date" value="{{draft.date || reference}}" start="1900-01-01" end="2199-12-31" bindchange="changeDate"><view class="field picker">{{draft.date || '待定，点击选择'}} ▾</view></picker><button wx:if="{{draft.date}}" class="text-button" bindtap="clearDate">清除日期和时间</button></view>
+        <view><view class="label">截止时间</view><picker mode="time" value="{{draft.time || '18:00'}}" disabled="{{!draft.date}}" bindchange="changeTime"><view class="field picker {{!draft.date ? 'disabled' : ''}}">{{draft.time || (draft.date ? '不指定时间' : '先选日期')}} ▾</view></picker><button wx:if="{{draft.time}}" class="text-button" bindtap="clearTime">清除时间</button></view>
+      </view>
+      <view class="label">分类</view><picker range="{{categories}}" value="{{categoryIndex}}" bindchange="changeCategory"><view class="field picker">{{draft.category}} ▾</view></picker>
+      <view class="label">备注与要求</view><textarea class="field notes-input" value="{{draft.notes}}" maxlength="3000" data-field="notes" bindinput="inputDraft" placeholder="提交方式、文件命名、地点等" disable-default-padding="{{true}}" />
+      <view class="action-row"><button class="secondary" bindtap="cancelDraft">取消</button><button class="primary grow" bindtap="saveDraft">{{editingId ? '保存修改' : '确认，加入待办'}}</button></view>
+    </view>
+    <view wx:else class="card guidance"><view class="soft-icon">☷</view><view class="section-heading">把脑袋腾出来</view><view class="muted">一次整理一条通知。日期不明确时，课间会提醒你手动确认。</view><view class="step">01　粘贴原通知</view><view class="step">02　核对日期和要求</view><view class="step">03　保存后逐件完成</view></view>
+  </view>
+
+  <view wx:if="{{view === 'tasks'}}" class="board">
+    <view class="board-top"><view><text class="eyebrow">我的待办</text><view class="section-heading">还有 {{pendingCount}} 件事待完成</view><view class="muted small">按截止日期排序，日期待定的放在后面。</view></view><view class="count-pill">{{pendingCount}}</view></view>
+    <view class="filters"><button class="filter {{filter === 'pending' ? 'active' : ''}}" data-filter="pending" bindtap="setFilter">待完成</button><button class="filter {{filter === 'done' ? 'active' : ''}}" data-filter="done" bindtap="setFilter">已完成</button><button class="filter {{filter === 'all' ? 'active' : ''}}" data-filter="all" bindtap="setFilter">全部</button></view>
+    <view wx:if="{{!visibleTasks.length}}" class="card empty"><view class="soft-icon">✓</view><view class="section-heading">{{filter === 'done' ? '完成的事情，会留在这里' : '这一栏很清爽'}}</view><view class="muted">{{filter === 'done' ? '完成一件，勾掉一件。' : '去收好一条通知，给脑袋腾点空间。'}}</view><button class="secondary" data-view="compose" bindtap="changeView">整理通知</button></view>
+    <view wx:for="{{visibleTasks}}" wx:key="id" class="card task {{item.done ? 'completed' : ''}}">
+      <view class="task-top"><button class="check {{item.done ? 'checked' : ''}}" data-id="{{item.id}}" bindtap="toggleDone" aria-label="{{item.done ? '恢复待完成' : '标记完成'}}">{{item.done ? '✓' : ''}}</button><view class="task-body"><view class="task-title">{{item.title}}</view><view class="task-meta"><text class="tag">{{item.category}}</text><text class="small {{item.late ? 'late' : 'muted'}}">{{item.due}}</text></view><view wx:if="{{item.notes}}" class="task-notes">{{item.notes}}</view></view></view>
+      <view class="task-actions"><button class="text-button" data-id="{{item.id}}" bindtap="editTask">编辑</button><button wx:if="{{item.hasSource}}" class="text-button" data-id="{{item.id}}" bindtap="toggleSource">{{expandedId === item.id ? '收起原文' : '查看原通知'}}</button><button class="text-button delete" data-id="{{item.id}}" bindtap="removeTask">删除</button></view>
+      <view wx:if="{{expandedId === item.id}}" class="source"><text selectable="{{true}}">{{item.source}}</text></view>
+    </view>
+    <view wx:if="{{hasMore || hasPrevious}}" class="action-row"><button wx:if="{{hasPrevious}}" class="secondary grow" bindtap="previousPage">上一页</button><text class="muted small">第 {{pageNumber}} 页</text><button wx:if="{{hasMore}}" class="secondary grow" bindtap="loadMore">下一页</button></view>
+  </view>
+
+  <view wx:if="{{view === 'help'}}" class="help-page">
+    <view class="help-header"><text class="eyebrow">数据与帮助</text><view class="help-heading">给待办留个备份</view><view class="help-description">换设备或清理微信前，先保存一份。</view></view>
+    <view class="help-grid">
+      <view class="card backup-card">
+        <view class="backup-summary"><view class="backup-symbol">✓</view><view><view class="backup-count">{{totalCount ? '已保存 ' + totalCount + ' 条待办' : '还没有待办'}}</view><view class="help-caption">{{totalCount ? pendingCount + ' 条待完成 · 仅保存在本机' : '先收好一条通知，再来备份吧'}}</view></view></view>
+        <button class="primary full help-save" bindtap="exportBackup" disabled="{{!totalCount}}">保存一份备份</button>
+        <view class="help-caption action-caption">生成备份文件，发送给自己留存。</view>
+        <view class="help-separator"></view>
+        <view class="help-title">找回之前的待办</view>
+        <view class="help-description">从微信聊天选择你保存的课间备份。</view>
+        <button class="secondary full help-restore" bindtap="chooseBackup">选择备份恢复</button>
+        <view class="help-caption action-caption">只能恢复课间备份，不能读取通知文档。</view>
+        <button class="help-disclosure" bindtap="togglePaste"><text>也可以复制、粘贴备份</text><text class="help-chevron">{{pasteOpen ? '−' : '＋'}}</text></button>
+        <view wx:if="{{pasteOpen}}" class="text-backup">
+          <view class="help-description">在另一台设备或网页版复制备份，再把完整内容粘贴到这里。请不要修改备份文字。</view>
+          <button class="secondary full help-copy" bindtap="copyBackup" disabled="{{!totalCount}}">复制本机备份</button>
+          <textarea class="field paste-input" value="{{pasteText}}" bindinput="inputPaste" maxlength="1000000" placeholder="在这里粘贴完整的备份文字" disable-default-padding="{{true}}"/>
+          <button class="secondary full help-read" bindtap="importPaste">读取这份备份</button>
+        </view>
+        <view wx:if="{{importOpen}}" class="import-panel">
+          <view class="help-title">找到 {{importCount}} 条备份待办</view><view class="help-caption">本机已有 {{totalCount}} 条，请选择恢复方式。</view>
+          <radio-group bindchange="changeImportMode">
+            <label class="radio-row"><radio value="merge" checked="{{importMode === 'merge'}}" color="#365be5"/><view class="restore-option"><view>保留现有待办</view><view class="help-caption">加入备份；同一条待办使用备份中的版本。</view></view></label>
+            <label class="radio-row"><radio value="replace" checked="{{importMode === 'replace'}}" color="#365be5"/><view class="restore-option"><view>用备份全部替换</view><view class="help-caption">本机现有待办会被覆盖，无法撤销。</view></view></label>
+          </radio-group>
+          <view class="action-row"><button class="secondary" bindtap="cancelImport">取消</button><button class="primary grow" bindtap="confirmImport">恢复待办</button></view>
+        </view>
+      </view>
+      <view class="help-side">
+        <view class="card help-guide">
+          <view class="help-title">使用小帮手</view>
+          <view class="help-topic"><button class="help-disclosure" data-section="transfer" bindtap="toggleHelp"><text>换设备，怎么带走待办？</text><text class="help-chevron">{{helpSection === 'transfer' ? '−' : '＋'}}</text></button>
+            <view wx:if="{{helpSection === 'transfer'}}" class="help-answer">
+              <view class="transfer-step"><text class="step-number">1</text><view>在旧设备保存一份备份，发送给自己。</view></view>
+              <view class="transfer-step"><text class="step-number">2</text><view>在新设备接收这份文件，打开课间。</view></view>
+              <view class="transfer-step"><text class="step-number">3</text><view>选择备份恢复，核对条数后确认。</view></view>
+              <view class="help-caption">网页版也能恢复同一份备份。设备之间不会自动同步，更换设备前请重新备份。</view>
+            </view>
+          </view>
+          <view class="help-topic"><button class="help-disclosure" data-section="calendar" bindtap="toggleHelp"><text>想在日历里设置提醒？</text><text class="help-chevron">{{helpSection === 'calendar' ? '−' : '＋'}}</text></button>
+            <view wx:if="{{helpSection === 'calendar'}}" class="help-answer"><view>把有日期的未完成待办生成日历文件，再用支持导入的日历应用打开。</view><button class="secondary full help-calendar" bindtap="exportCalendar" disabled="{{!pendingCount}}">生成日历文件</button><view class="help-caption action-caption">提醒时间需要在日历里设置。课间不会自动发送提醒。</view></view>
+          </view>
+          <view class="help-topic"><button class="help-disclosure" data-section="privacy" bindtap="toggleHelp"><text>我的通知会上传吗？</text><text class="help-chevron">{{helpSection === 'privacy' ? '−' : '＋'}}</text></button>
+            <view wx:if="{{helpSection === 'privacy'}}" class="help-answer"><view>通知和待办只在这台设备处理、保存，不会自动上传，也不会读取你的微信聊天。</view><view class="help-caption action-caption">备份包含待办和原通知，请发给自己或可信的人。清理微信数据可能丢失记录，记得提前备份。</view></view>
+          </view>
+        </view>
+        <view class="help-about"><view>课间 · 基础功能免费</view><view class="help-caption">识别结果可能有误，保存前请核对。</view><button class="help-share" open-type="share">分享课间给同学</button><view class="help-caption">分享入口不会附带你的待办。<view>当前为开发版，正式发布后可公开分享。</view></view></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="navigation"><button class="nav-item {{view === 'compose' ? 'selected' : ''}}" data-view="compose" bindtap="changeView"><view class="nav-symbol">＋</view>收通知</button><button class="nav-item {{view === 'tasks' ? 'selected' : ''}}" data-view="tasks" bindtap="changeView"><view class="nav-symbol">☷ <text wx:if="{{pendingCount}}" class="nav-count">{{pendingCount}}</text></view>我的待办</button><button class="nav-item {{view === 'help' ? 'selected' : ''}}" data-view="help" bindtap="changeView"><view class="nav-symbol">⇄</view>数据与帮助</button></view>
+</view>

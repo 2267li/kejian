@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "page": "pages/index/index",
+  "SDKVersion": "3.12.1",
+  "platform": "devtools",
+  "windowWidth": 320,
+  "checks": [
+    "Chinese textarea input",
+    "date picker change event",
+    "extract date and time",
+    "draft across tabs",
+    "save",
+    "reload persistence",
+    "complete",
+    "edit completed task",
+    "help view",
+    "native component widths",
+    "no horizontal overflow"
+  ],
+  "exceptionCount": 0,
+  "captureScreenshots": true,
+  "realPhone": false,
+  "realFilePicker": false
+}

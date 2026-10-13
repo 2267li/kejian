@@ -1,0 +1,19 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),dir=path.join(root,'docs/qa');
+const before=JSON.parse(fs.readFileSync(path.join(dir,'baseline-v0.2.0.json'),'utf8'));
+const after=JSON.parse(fs.readFileSync(path.join(dir,'results-v0.2.1.json'),'utf8'));
+const browser=JSON.parse(fs.readFileSync(path.join(dir,'browser-results-v0.2.1.json'),'utf8'));
+const cases=require('../tests/fixtures/notice-cases.cjs');
+const clean=s=>String(s).replaceAll('|','\\|').replaceAll('\n',' / ');
+const sources=cases.filter(c=>c.source),reviews=cases.filter(c=>c.mode==='review');
+let report=`# 课间 v0.2.1 测试报告\n\n日期：2026-10-12（北京时间）。\n\n## 结论\n\n旧版在本轮 ${cases.length} 条样本中通过 ${before.summary.passed} 条，修复后通过 ${after.summary.passed} 条。另通过原有 10 项日期/日历回归，以及桌面、手机模拟视口共 ${browser.flows} 次通知操作流程。\n\n这是定向回归样本的符合预期数量，不是实际用户通知的统计准确率。${cases.length-reviews.length} 条按预期给出日期和时间草稿，${reviews.length} 条属于日期缺失、非法、歧义、多日期或多时刻，需要人工确认。提示人工确认也计入回归通过，不能称为全部自动识别成功。所有结果仍须用户核对。\n\n## 样本与来源\n\n40 条人工编写的模拟通知，覆盖相对日期、中文时间、全角字符、日期注释、范围、非法值、跨年和闰年。6 条由高校官网公开通知人工摘编，保留关键日期和时间写法；不是逐字全文，不能代表完整长通知的识别效果。未使用私人群消息、真实学生个人数据或登录内容。\n\n预期字段在修改解析规则前填写，之后固定运行；最初录入参考日期的下标错误已更正后重新生成基线。网页发布时间和通知正文落款可能不同，测试采用各样本标明的参考日期。\n\n| 样本 | 来源 | 参考日期 | 处理要求 |\n| --- | --- | --- | --- |\n`;
+for(const c of sources)report+=`| ${c.id} | [${c.source.title}](${c.source.url}) | ${c.base} | ${c.mode==='review'?'保留人工确认':'提取日期和时间'} |\n`;
+report+='\n## 发现及修复\n\n- 全角数字、全角冒号统一解析，保留原通知不变。\n- 日期后的星期作为校验信息，不再额外生成通知当周的日期；冲突时明确提醒。\n- 支持中文月日、一刻/三刻、18时30、中午 1:30。\n- 午夜、24:00、非法分钟或无日期的单独时刻不直接填成错误截止时间。\n- 省略月份的日期范围/并列日期提示人工选择；混合冒号的时间段不再只读出开始时刻。\n- 竞赛/培训等优先归入活动，补充纸件、盖章、提交地点等备注关键词。\n\n## 全部结果\n\n“提取”只表示该样本预期可填日期与时间；“人工确认”表示保留空字段或提示歧义。\n\n| ID | 场景 | 处理 | 旧版 | 新版 | 日期 / 时间 |\n| --- | --- | --- | --- | --- | --- |\n';
+for(const c of after.results){const old=before.results.find(r=>r.id===c.id);report+=`| ${c.id} | ${clean(c.name)} | ${c.mode==='review'?'人工确认':'提取'} | ${old.passed?'通过':'失败'} | ${c.passed?'通过':'失败'} | ${c.actual.date||'留空'} / ${c.actual.time||'留空'} |\n`;}
+report+='\n## 网页实际操作\n\n两套独立浏览器上下文，1440px 桌面与 390px 手机模拟，均逐条粘贴这 46 条文本、填写参考日期、核对表单和警告并保存，合计 92 个流程。检查刷新后记录、原通知原样保存、无脚本注入以及日历下载。对 4 条真实时间段/多事项样本，测试明确模拟用户选择开始时间或报名截止时间后保存；这些手动选择不计作自动识别能力。\n\n同时运行既有文件版与 PWA 回归：导入导出、合并去重、替换确认/取消、无效备份、删除撤销、跨端迁移、离线刷新和离线新增。\n\n## 文件与复现\n\n- tests/fixtures/notice-cases.cjs：带来源、原始输入、人工预期的固定样本。\n- docs/qa/test-notices.txt：可直接复制粘贴的全部测试文本及预期。\n- tests/fixtures/demo-import.json：8 条标为测试数据的备份，可在临时浏览器中导入体验。\n- docs/qa/baseline-v0.2.0.json、results-v0.2.1.json：逐字段前后对比。\n- docs/qa/browser-results-v0.2.1.json：逐条网页流程记录。\n\n运行 npm test、npm run test:corpus、npm run test:browser。浏览器环境配置见 ../development.md。报告基于本机 Windows Edge / Chromium 自动化。\n\n## 仍存在的限制\n\n基础规则不等于语义理解；长通知里的报名、提交、签到、答辩可能需要拆成多个待办，本版不自动拆分或选择优先截止日期。分类及标题仅为草稿，容易受整段文字关键词影响。循环事件、节假日/农历、周末/月底等含糊表达和跨时区内容不在本轮支持保证内。尚未做随机大规模抽样、真实 iOS/Android 安装、Safari/Firefox 引擎或用户留存测试。\n';
+fs.writeFileSync(path.join(dir,'report-v0.2.1.md'),report);
+fs.writeFileSync(path.join(dir,'test-notices.txt'),cases.map(c=>`${c.id} ${c.name}\n类型：${c.kind==='synthetic'?'模拟':'官网通知摘编'}\n参考日期：${c.base}\n输入：\n${c.text}\n预期：${JSON.stringify(c.expected)}\n${c.source?'来源：'+c.source.url+'\n非全文摘录，仅保留事实与关键格式。\n':''}`).join('\n--------------------\n\n'));
+const tasks=after.results.filter(c=>c.kind==='synthetic'&&c.mode==='extract').slice(0,8).map(c=>({id:'qa-'+c.id,title:'[测试数据] '+c.name,date:c.expected.date,time:c.expected.time,category:c.expected.category,notes:c.actual.notes,source:c.text,done:false,createdAt:'2026-10-12T00:00:00+08:00'}));
+fs.writeFileSync(path.join(root,'tests/fixtures/demo-import.json'),JSON.stringify({app:'kejian',version:1,exportedAt:'2026-10-12T00:00:00+08:00',tasks},null,2));
+console.log(`Report written: ${after.summary.passed}/${cases.length}; ${reviews.length} require review; ${browser.flows} browser flows.`);

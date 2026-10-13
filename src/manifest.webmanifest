@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "课间 · 通知变待办",
+  "short_name": "课间",
+  "description": "把群里的通知整理成待办，给大学生活留一点余地。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8fb",
+  "theme_color": "#365be5",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

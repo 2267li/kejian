@@ -1,0 +1,115 @@
+(function (root) {
+  'use strict';
+  const pad = n => String(n).padStart(2, '0');
+  const dateKey = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  function parseDate(value) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || '');
+    if (!m) return null;
+    const d = new Date(+m[1], +m[2] - 1, +m[3], 12);
+    return d.getFullYear() === +m[1] && d.getMonth() === +m[2] - 1 && d.getDate() === +m[3] ? d : null;
+  }
+  function number(text) {
+    if (/^\d+$/.test(text)) return +text;
+    const digit = {'零':0,'一':1,'二':2,'两':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9};
+    if (text === '十') return 10;
+    if (text.includes('十')) { const [a,b] = text.split('十'); return (a ? digit[a] : 1) * 10 + (b ? digit[b] : 0); }
+    return digit[text];
+  }
+  function extract(text, baseKey) {
+    const source = String(text || '').trim();
+    text = source.normalize('NFKC');
+    const base = parseDate(baseKey);
+    if (!base) throw new Error('请填写有效的通知日期');
+    const warnings = [];
+    let date = '', time = '', evidence = '';
+    const candidates = [];
+    const explicit = [...text.matchAll(/(?:(\d{4})\s*年\s*)?([\d一二三四五六七八九十]{1,3})\s*月\s*([\d一二三四五六七八九十]{1,3})\s*[日号]?|(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})/g)];
+    for (const m of explicit) {
+      const year = m[1] || m[4] || base.getFullYear();
+      const month = number(m[2] || m[5]), day = number(m[3] || m[6]);
+      const value = `${year}-${pad(month)}-${pad(day)}`;
+      m.resolved = parseDate(value);
+      if (m.resolved) candidates.push({date:value, text:m[0], index:m.index});
+      else warnings.push(`“${m[0]}”不是有效日期，请手动填写。`);
+      if (!m[1] && !m[4]) warnings.push('原文未写年份，暂按通知日期所在年份填写；跨年通知请修改。');
+      // A shortened second date still makes this a multi-date notice.
+      const tail=text.slice(m.index+m[0].length);
+      const shortened=/^\s*(?:至|到|、|和|及|[-~—–])\s*([\d一二三四五六七八九十]{1,3})\s*[日号]/.exec(tail);
+      if(shortened){const second=`${year}-${pad(month)}-${pad(number(shortened[1]))}`;if(parseDate(second))candidates.push({date:second,text:shortened[0],index:m.index+m[0].length});else warnings.push('省略月份的日期无效，请手动填写。');}
+    }
+    const relatives = [...text.matchAll(/大后天|后天|明天|今天|今日|明日|(?:下下|下|本|这)?(?:周|星期|礼拜)[一二三四五六日天]/g)];
+    for (const m of relatives) {
+      const annotation=explicit.find(e=>e.index+e[0].length<=m.index && /^[\s(]*$/.test(text.slice(e.index+e[0].length,m.index)));
+      if(annotation && /周|星期|礼拜/.test(m[0])){
+        const stated={'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'日':7,'天':7}[m[0].slice(-1)];
+        if(annotation.resolved && (annotation.resolved.getDay()||7)!==stated)warnings.push('日期与括号内星期不一致，暂用明确日期，请核对原通知。');
+        continue;
+      }
+      const d = new Date(base);
+      const offsets = {今天:0,今日:0,明天:1,明日:1,后天:2,大后天:3};
+      if (m[0] in offsets) d.setDate(d.getDate() + offsets[m[0]]);
+      else {
+        const part = m[0].match(/^(下下|下|本|这)?(?:周|星期|礼拜)([一二三四五六日天])$/);
+        const day = {'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'日':7,'天':7}[part[2]];
+        const current = base.getDay() || 7;
+        const weeks = part[1] === '下下' ? 2 : part[1] === '下' ? 1 : 0;
+        d.setDate(d.getDate() + day - current + weeks * 7);
+        if (!part[1]) warnings.push(`“${m[0]}”暂按通知当周理解，请核对。`);
+      }
+      candidates.push({date:dateKey(d),text:m[0],index:m.index});
+    }
+    if(/今晚/.test(text)) candidates.push({date:baseKey,text:'今晚',index:text.indexOf('今晚')});
+    const uniqueDates = [...new Set(candidates.map(x => x.date))];
+    if (uniqueDates.length === 1) {
+      date = uniqueDates[0]; evidence = candidates.map(x=>x.text).join('、');
+      if (date < baseKey) warnings.push('提取的日期早于通知日期，请核对是否跨周或跨年。');
+    } else if (uniqueDates.length > 1) warnings.push('原文包含多个日期，可能有开始时间和截止时间。请手动选择截止日期。');
+    else if (!warnings.length) warnings.push('没有识别到明确日期，可手动填写，或保存为“待定”。');
+    const clocks = [];let unsafeClock=false;
+    function addClock(h,minute,period,raw,second=0){
+      if(h<0||h>23||minute<0||minute>59||second<0||second>59){unsafeClock=true;warnings.push(`“${raw}”不是有效时刻，请核对日期和时间。`);return;}
+      if(['晚上','晚间','晚','今晚'].includes(period)&&h===12){unsafeClock=true;warnings.push('午夜“晚上十二点”可能跨天，请手动核对日期与时刻。');return;}
+      if(second!==0){unsafeClock=true;warnings.push('时刻包含秒数，当前按分钟保存，请手动核对。');return;}
+      if(['下午','傍晚','晚上','晚间','晚','今晚'].includes(period)&&h<12)h+=12;
+      if(period==='中午'&&h<11)h+=12;
+      if(period==='凌晨'&&h===12)h=0;
+      clocks.push(`${pad(h)}:${pad(minute)}`);
+    }
+    for(const m of text.matchAll(/(今晚|凌晨|早上|上午|中午|下午|傍晚|晚上|晚间|晚)?\s*(?<!\d)(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?(?!\d)/g))addClock(+m[2],+m[3],m[1],m[0],+(m[4]||0));
+    for(const m of text.matchAll(/(今晚|凌晨|早上|上午|中午|下午|傍晚|晚上|晚间|晚)?\s*(?<![\d零一二两三四五六七八九十])([\d零一二两三四五六七八九十]{1,3})\s*[点时](?:(半)|([一三])刻|([\d零一二两三四五六七八九十]{1,3})\s*分?)?/g))addClock(number(m[2]),m[3]?30:m[4]?number(m[4])*15:m[5]?number(m[5]):0,m[1],m[0]);
+    const uniqueClocks=[...new Set(clocks)];
+    if (date && !unsafeClock && uniqueClocks.length===1) time=uniqueClocks[0];
+    else if (uniqueClocks.length>1) warnings.push('原文包含多个时间，请手动核对截止时刻。');
+    if (/(?:8|八|9|九|10|十|11|十一|12|十二)点/.test(text) && !/(凌晨|早上|上午|中午|下午|傍晚|晚上|晚间|今晚)/.test(text)) warnings.push('时间未注明上午或下午，请确认。');
+    const titleMatch = text.match(/(?:提交|上交|完成|填写|参加|报名|缴纳|领取|上传|交齐)[^，。；\n！!?？]{1,60}/);
+    let title = titleMatch ? titleMatch[0] : text.split(/[。！!?？\n]/)[0];
+    title = (title || '新的待办').replace(/^[【\[].*?[】\]]\s*/, '').slice(0,70);
+    const category = /考试|测验|补考/.test(text)?'考试':/比赛|竞赛|讲座|活动|报名|社团|培训|工作坊/.test(text)?'活动':/作业|报告|论文|实验|习题/.test(text)?'作业':'其他';
+    const notes=text.split(/[。;；\n]/).filter(x=>/格式|命名|文件名|邮箱|发送|提交到|上传至|教室|地点|携带|要求|需|须|盖章|纸件|纸质|电子版|PDF|Word|交至|报送/i.test(x)).map(x=>x.trim()).filter(Boolean).join('\n').slice(0,3000);
+    return {title,date,time,category,notes,source,evidence,warnings:[...new Set(warnings)]};
+  }
+  const esc = s => String(s || '').replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
+  function fold(line) {
+    let out='', segment='', count=0;
+    // Count UTF-8 bytes without browser-only TextEncoder (also runs in WeChat).
+    for (const char of line) { const code=char.codePointAt(0),size=code<=0x7f?1:code<=0x7ff?2:code<=0xffff?3:4; if(count+size>74){out+=segment+'\r\n'; segment=' '; count=1;} segment+=char; count+=size; }
+    return out+segment;
+  }
+  function makeCalendar(tasks) {
+    const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Kejian//Notice Todo//ZH','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:课间待办'];
+    for (const task of tasks) {
+      const d = parseDate(task.date); if(!d) continue;
+      lines.push('BEGIN:VEVENT',`UID:${String(task.id).replace(/[^a-zA-Z0-9-]/g,'')}@kejian.local`,`DTSTAMP:${stamp}`);
+      if (/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(task.time || '')) {
+        const time=task.time.replace(':','');
+        lines.push(`DTSTART:${task.date.replace(/-/g,'')}T${time}00`,`DTEND:${task.date.replace(/-/g,'')}T${time}00`);
+      } else {const end=new Date(d);end.setDate(end.getDate()+1);lines.push(`DTSTART;VALUE=DATE:${task.date.replace(/-/g,'')}`,`DTEND;VALUE=DATE:${dateKey(end).replace(/-/g,'')}`);}
+      lines.push(`SUMMARY:${esc(task.title)}`,`DESCRIPTION:${esc([task.notes,task.source?'原通知：\n'+task.source:''].filter(Boolean).join('\n\n'))}`,'END:VEVENT');
+    }
+    lines.push('END:VCALENDAR');return lines.map(fold).join('\r\n')+'\r\n';
+  }
+  const api={dateKey,parseDate,extract,makeCalendar};
+  if(typeof module!=='undefined' && module.exports)module.exports=api;
+  root.Kejian=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
